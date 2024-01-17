@@ -58,9 +58,11 @@ export default function App() {
 					lineCap="round"
 				>
 					{(fill) => (
-						<Text>{`${hours.toString().padStart(2, '0')}:${minutes
+						<Text style={appStyles.timerText}>{`${hours
 							.toString()
-							.padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`}</Text>
+							.padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds
+							.toString()
+							.padStart(2, '0')}`}</Text>
 					)}
 				</AnimatedCircularProgress>
 			</View>
@@ -71,21 +73,23 @@ export default function App() {
 					onPress={() => handlePauseOrResumeTimer()}
 					android_ripple={{ color: colors.transparent }}
 				>
-					<Text>
-						<Ionicons name={isPaused ? 'play' : 'pause'} size={32} />
+					<Text style={appStyles.buttonText}>
+						<Ionicons name={isPaused ? 'play' : 'pause'} size={20} />
 					</Text>
 					<Text style={appStyles.buttonText}>{isPaused ? 'Começar' : 'Pausar'}</Text>
 				</Pressable>
-				<Pressable
-					style={appStyles.button}
-					onPress={() => handleResetTimer()}
-					android_ripple={{ color: colors.transparent }}
-				>
-					<Text>
-						<Ionicons name="stop" size={32} />
-					</Text>
-					<Text style={appStyles.buttonText}>Parar</Text>
-				</Pressable>
+				{timer !== initialTime && (
+					<Pressable
+						style={appStyles.button}
+						onPress={() => handleResetTimer()}
+						android_ripple={{ color: colors.transparent }}
+					>
+						<Text style={appStyles.buttonText}>
+							<Ionicons name="stop" size={20} />
+						</Text>
+						<Text style={appStyles.buttonText}>Parar</Text>
+					</Pressable>
+				)}
 			</View>
 		</SafeAreaView>
 	);

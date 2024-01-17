@@ -20,10 +20,15 @@ export const appStyles = StyleSheet.create({
 		borderRadius: 6,
 		display: 'flex',
 		flexDirection: 'row',
+		gap: 5,
 	},
 	buttonText: {
 		textAlignVertical: 'center',
 		fontSize: 16,
 		fontWeight: '500',
+	},
+	timerText: {
+		fontSize: 45,
+		fontWeight: 'bold',
 	},
 });
