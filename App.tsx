@@ -1,4 +1,5 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { Audio } from 'expo-av';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
 import { Pressable, Text, View } from 'react-native';
@@ -10,23 +11,29 @@ import { colors } from '~/styles/colors';
 import { appStyles } from './styles';
 
 export default function App() {
-	const initialTime = 0;
-	const [timer, setTimer] = useState<number>(initialTime);
+	const [initialTime, setInitialTime] = useState<number>(0);
+	const [timer, setTimer] = useState<number>(0);
 	const [isPaused, setIsPaused] = useState<boolean>(true);
 	const [inputTime, setInputTime] = useState<string>('');
 	const [isTimePickerModalVisible, setIsTimePickerModalVisible] = useState<boolean>(false);
+	const [isTimerCompletedModalVisible, setIsTimerCompletedModalVisible] =
+		useState<boolean>(false);
+	const [sound, setSound] = useState<Audio.Sound | undefined>();
+	const [completedPercentage, setCompletedPercentage] = useState<number>(0);
 
 	let seconds = Math.floor((timer / 1000) % 60);
 	const minutes = Math.floor((timer / (1000 * 60)) % 60);
 	const remainingPercentage = Math.floor((100 * timer) / initialTime);
-	const completedPercentage = timer === 0 ? 0 : 100 - remainingPercentage;
+	const hasFinished = timer <= 0 && completedPercentage === 100;
 
 	if (seconds === 60) {
 		seconds = 0;
 	}
 
 	const handlePauseOrResumeTimer = () => {
-		setIsPaused((prevState) => !prevState);
+		if (timer > 0) {
+			setIsPaused((prevState) => !prevState);
+		}
 	};
 
 	const handleResetTimer = () => {
@@ -44,7 +51,41 @@ export default function App() {
 		return () => {
 			clearTimeout(timeout);
 		};
-	}, [timer, isPaused]);
+	}, [timer, isPaused, completedPercentage]);
+
+	useEffect(() => {
+		handleResetTimer();
+	}, [initialTime]);
+
+	const handleDismissTimerCompleted = () => {
+		sound && sound.stopAsync();
+		setIsTimerCompletedModalVisible(false);
+	};
+
+	useEffect(() => {
+		setCompletedPercentage(100 - remainingPercentage);
+	}, [remainingPercentage]);
+
+	const playSound = async () => {
+		const { sound } = await Audio.Sound.createAsync(require('~/assets/sounds/daydream.mp3'));
+		setSound(sound);
+
+		await sound.playAsync();
+	};
+
+	useEffect(() => {
+		return sound
+			? () => {
+					sound.unloadAsync();
+			  }
+			: undefined;
+	}, [sound]);
+
+	if (hasFinished) {
+		setIsTimerCompletedModalVisible(true);
+		playSound();
+		handleResetTimer();
+	}
 
 	return (
 		<SafeAreaView style={{ flex: 1 }}>
@@ -55,19 +96,45 @@ export default function App() {
 					size={300}
 					width={10}
 					fill={completedPercentage}
-					tintColor={colors.blue}
+					tintColor={colors.green}
 					backgroundColor={colors.background}
 					rotation={360}
 					lineCap="round"
 				>
 					{(fill) => (
-						<Pressable onPress={() => setIsTimePickerModalVisible(true)}>
+						<Pressable onPress={() => isPaused && setIsTimePickerModalVisible(true)}>
 							<Text style={appStyles.timerText}>{`${minutes
 								.toString()
 								.padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`}</Text>
 						</Pressable>
 					)}
 				</AnimatedCircularProgress>
+			</View>
+
+			<View style={appStyles.buttonContainer}>
+				<Pressable
+					style={[appStyles.button, initialTime <= 0 && appStyles.disabled]}
+					onPress={() => handlePauseOrResumeTimer()}
+					android_ripple={{ color: colors.transparent }}
+				>
+					<Text style={appStyles.buttonText}>
+						<Ionicons name={isPaused ? 'play' : 'pause'} size={20} />
+					</Text>
+					<Text style={appStyles.buttonText}>{isPaused ? 'Começar' : 'Pausar'}</Text>
+				</Pressable>
+
+				{timer !== initialTime && (
+					<Pressable
+						style={appStyles.button}
+						onPress={() => handleResetTimer()}
+						android_ripple={{ color: colors.transparent }}
+					>
+						<Text style={appStyles.buttonText}>
+							<Ionicons name="stop" size={20} />
+						</Text>
+						<Text style={appStyles.buttonText}>Parar</Text>
+					</Pressable>
+				)}
 			</View>
 
 			<ReactNativeModal
@@ -93,7 +160,7 @@ export default function App() {
 							const inputMinutes = Number(splittedInputTime[0] ?? 0);
 							const inputSeconds = Number(splittedInputTime[1] ?? 0);
 
-							setTimer(inputMinutes * 60 * 1000 + inputSeconds * 1000);
+							setInitialTime(inputMinutes * 60 * 1000 + inputSeconds * 1000);
 						}}
 						mask={[/[0-5]/, /\d/, ':', /[0-5]/, /\d/]}
 						keyboardType="numeric"
@@ -112,30 +179,34 @@ export default function App() {
 					</Pressable>
 				</View>
 			</ReactNativeModal>
-
-			<View style={appStyles.buttonContainer}>
-				<Pressable
-					style={appStyles.button}
-					onPress={() => handlePauseOrResumeTimer()}
-					android_ripple={{ color: colors.transparent }}
+			<ReactNativeModal
+				isVisible={isTimerCompletedModalVisible}
+				onBackdropPress={() => setIsTimerCompletedModalVisible(false)}
+			>
+				<View
+					style={{
+						backgroundColor: colors.white,
+						borderRadius: 5,
+						padding: 20,
+						display: 'flex',
+						alignItems: 'center',
+					}}
 				>
-					<Text style={appStyles.buttonText}>
-						<Ionicons name={isPaused ? 'play' : 'pause'} size={20} />
+					<Text style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 20 }}>
+						Tempo finalizado!
 					</Text>
-					<Text style={appStyles.buttonText}>{isPaused ? 'Começar' : 'Pausar'}</Text>
-				</Pressable>
-
-				<Pressable
-					style={appStyles.button}
-					onPress={() => handleResetTimer()}
-					android_ripple={{ color: colors.transparent }}
-				>
-					<Text style={appStyles.buttonText}>
-						<Ionicons name="stop" size={20} />
-					</Text>
-					<Text style={appStyles.buttonText}>Parar</Text>
-				</Pressable>
-			</View>
+					<Pressable
+						style={appStyles.button}
+						onPress={() => handleDismissTimerCompleted()}
+						android_ripple={{ color: colors.transparent }}
+					>
+						<Text style={appStyles.buttonText}>
+							<Ionicons name="checkmark-circle-outline" size={20} />
+						</Text>
+						<Text style={appStyles.buttonText}>OK</Text>
+					</Pressable>
+				</View>
+			</ReactNativeModal>
 		</SafeAreaView>
 	);
 }

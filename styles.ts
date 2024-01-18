@@ -22,6 +22,9 @@ export const appStyles = StyleSheet.create({
 		flexDirection: 'row',
 		gap: 5,
 	},
+    disabled: {
+        opacity: 0.5
+    },
 	buttonText: {
 		textAlignVertical: 'center',
 		fontSize: 16,
