@@ -2,7 +2,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { Audio } from 'expo-av';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
-import { Pressable, Text, View } from 'react-native';
+import { Pressable, Text, Vibration, View } from 'react-native';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import MaskInput from 'react-native-mask-input';
 import ReactNativeModal from 'react-native-modal';
@@ -60,6 +60,7 @@ export default function App() {
 	const handleDismissTimerCompleted = () => {
 		sound && sound.stopAsync();
 		setIsTimerCompletedModalVisible(false);
+		Vibration.cancel();
 	};
 
 	useEffect(() => {
@@ -83,6 +84,7 @@ export default function App() {
 
 	if (hasFinished) {
 		setIsTimerCompletedModalVisible(true);
+		Vibration.vibrate([500, 500], true);
 		playSound();
 		handleResetTimer();
 	}
