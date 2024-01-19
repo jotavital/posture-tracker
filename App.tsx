@@ -23,8 +23,12 @@ export default function App() {
 
 	let seconds = Math.floor((timer / 1000) % 60);
 	const minutes = Math.floor((timer / (1000 * 60)) % 60);
-	const remainingPercentage = Math.floor((100 * timer) / initialTime);
 	const hasFinished = timer <= 0 && completedPercentage === 100;
+	let remainingPercentage = 100;
+
+	if (initialTime > 0) {
+		remainingPercentage = Math.floor((100 * timer) / initialTime);
+	}
 
 	if (seconds === 60) {
 		seconds = 0;
@@ -64,6 +68,8 @@ export default function App() {
 	};
 
 	useEffect(() => {
+		if (isNaN(remainingPercentage)) return;
+
 		setCompletedPercentage(100 - remainingPercentage);
 	}, [remainingPercentage]);
 
@@ -98,7 +104,7 @@ export default function App() {
 					size={300}
 					width={10}
 					fill={completedPercentage}
-					tintColor={colors.green}
+					tintColor={colors.blue}
 					backgroundColor={colors.background}
 					rotation={360}
 					lineCap="round"
@@ -162,6 +168,7 @@ export default function App() {
 							const inputMinutes = Number(splittedInputTime[0] ?? 0);
 							const inputSeconds = Number(splittedInputTime[1] ?? 0);
 
+							console.log('setando', inputMinutes * 60 * 1000 + inputSeconds * 1000);
 							setInitialTime(inputMinutes * 60 * 1000 + inputSeconds * 1000);
 						}}
 						mask={[/[0-5]/, /\d/, ':', /[0-5]/, /\d/]}
