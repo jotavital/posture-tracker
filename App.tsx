@@ -21,15 +21,15 @@ export default function App() {
 	const [sound, setSound] = useState<Audio.Sound | undefined>();
 	const [completedPercentage, setCompletedPercentage] = useState<number>(0);
 
-	let seconds = Math.floor((timer / 1000) % 60);
 	const minutes = Math.floor((timer / (1000 * 60)) % 60);
 	const hasFinished = timer <= 0 && completedPercentage === 100;
-	let remainingPercentage = 100;
 
+	let remainingPercentage = 100;
 	if (initialTime > 0) {
 		remainingPercentage = Math.floor((100 * timer) / initialTime);
 	}
 
+	let seconds = Math.floor((timer / 1000) % 60);
 	if (seconds === 60) {
 		seconds = 0;
 	}
@@ -168,7 +168,6 @@ export default function App() {
 							const inputMinutes = Number(splittedInputTime[0] ?? 0);
 							const inputSeconds = Number(splittedInputTime[1] ?? 0);
 
-							console.log('setando', inputMinutes * 60 * 1000 + inputSeconds * 1000);
 							setInitialTime(inputMinutes * 60 * 1000 + inputSeconds * 1000);
 						}}
 						mask={[/[0-5]/, /\d/, ':', /[0-5]/, /\d/]}
@@ -188,10 +187,7 @@ export default function App() {
 					</Pressable>
 				</View>
 			</ReactNativeModal>
-			<ReactNativeModal
-				isVisible={isTimerCompletedModalVisible}
-				onBackdropPress={() => setIsTimerCompletedModalVisible(false)}
-			>
+			<ReactNativeModal isVisible={isTimerCompletedModalVisible}>
 				<View
 					style={{
 						backgroundColor: colors.white,
