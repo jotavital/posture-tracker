@@ -2,10 +2,10 @@ import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
 	buttonContainer: {
+		backgroundColor: 'blue',
 		display: 'flex',
 		flexDirection: 'row',
-		justifyContent: 'center',
 		gap: 15,
-		backgroundColor: 'blue',
+		justifyContent: 'center',
 	},
 });

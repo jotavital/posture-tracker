@@ -83,7 +83,7 @@ export default function App() {
 		return sound
 			? () => {
 					sound.unloadAsync();
-			  }
+				}
 			: undefined;
 	}, [sound]);
 

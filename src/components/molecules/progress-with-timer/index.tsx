@@ -26,7 +26,7 @@ export const ProgressWithTimer: React.FC<Props> = ({
 				tintColor={colors.blue}
 				backgroundColor={colors.background}
 				rotation={360}
-				lineCap="round"
+				lineCap='round'
 			>
 				{(fill) => (
 					<TimeDisplay

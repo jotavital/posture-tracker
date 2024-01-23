@@ -11,7 +11,7 @@ export const TimeInput: React.FC<Props> = ({ value, onChangeText }: Props) => {
 			value={value}
 			onChangeText={onChangeText}
 			mask={[/[0-5]/, /\d/, ':', /[0-5]/, /\d/]}
-			keyboardType="numeric"
+			keyboardType='numeric'
 			style={{ fontSize: 80 }}
 			autoFocus
 		/>

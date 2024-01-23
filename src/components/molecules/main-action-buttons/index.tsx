@@ -30,8 +30,8 @@ export const MainActionButtons: React.FC<Props> = ({
 			{timer !== initialTime && (
 				<Button
 					onPress={() => handleResetTimer()}
-					leftIcon={<Ionicons name="stop" size={20} />}
-					title="Parar"
+					leftIcon={<Ionicons name='stop' size={20} />}
+					title='Parar'
 				/>
 			)}
 		</View>
