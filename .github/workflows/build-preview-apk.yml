@@ -11,5 +11,8 @@ jobs:
               with:
                   node-version: '20.x'
 
-            - name: Enable Corepack and Install Yarn
+            - name: Enable Corepack to use Yarn
               run: corepack enable
+
+            - name: Yarn Install
+              run: yarn
