@@ -14,11 +14,8 @@ jobs:
             - name: Enable Corepack to use Yarn
               run: corepack enable
 
-            - name: Yarn Add eas-cli
-              run: yarn dlx eas-cli
-
             - name: Yarn Install
               run: yarn
 
             - name: Build Preview APK on Expo
-              run: yarn build:dev
+              run: yarn dlx eas build -p android --profile preview
