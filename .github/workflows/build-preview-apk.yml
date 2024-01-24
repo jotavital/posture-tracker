@@ -14,6 +14,9 @@ jobs:
             - name: Enable Corepack to use Yarn
               run: corepack enable
 
+            - name: Yarn Add eas-cli
+              run: yarn global add eas-cli
+
             - name: Yarn Install
               run: yarn
 
