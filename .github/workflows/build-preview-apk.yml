@@ -14,11 +14,14 @@ jobs:
             - name: Enable Corepack to use Yarn
               run: corepack enable
 
+            - name: Setup Expo and EAS
+              uses: expo/expo-github-action@v8
+              with:
+                  eas-version: '7.0.0'
+                  token: ${{ secrets.EXPO_TOKEN }}
+
             - name: Yarn Install
               run: yarn
 
-            - name: Install eas-cli
-              run: npm install -g eas-cli
-
-            - name: Build Preview APK on Expo
-              run: yarn build:dev
+            - name: Build on EAS
+              run: eas build -p android --profile previe --non-interactive --no-wait
