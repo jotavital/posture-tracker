@@ -17,5 +17,8 @@ jobs:
             - name: Yarn Install
               run: yarn
 
+            - name: Install eas-cli
+              run: npm install -g eas-cli
+
             - name: Build Preview APK on Expo
-              run: yarn dlx eas build -p android --profile preview
+              run: yarn build:dev
