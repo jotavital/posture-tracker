@@ -1,21 +1,18 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { Dispatch, SetStateAction } from 'react';
+import { useState } from 'react';
 import { Button } from '~/components/atoms/button';
 import { TimeInput } from '~/components/atoms/time-input';
+import { useTimer } from '~/contexts/timer-context';
 
 interface Props {
-	timeInputValue: string;
-	setTimeInputValue: Dispatch<SetStateAction<string>>;
-	setInitialTime: Dispatch<SetStateAction<number>>;
 	handleCloseTimePickerModal: () => void;
 }
 
-export const TimePickerModalContent: React.FC<Props> = ({
-	timeInputValue,
-	setTimeInputValue,
-	setInitialTime,
-	handleCloseTimePickerModal,
-}: Props) => {
+export const TimePickerModalContent: React.FC<Props> = ({ handleCloseTimePickerModal }: Props) => {
+	const [timeInputValue, setTimeInputValue] = useState<string>('');
+
+	const { setInitialTime } = useTimer();
+
 	return (
 		<>
 			<TimeInput

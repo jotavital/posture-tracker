@@ -1,23 +1,20 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { View } from 'react-native';
 import { Button } from '~/components/atoms/button';
+import { useTimer } from '~/contexts/timer-context';
 import { styles } from './styles';
 
 interface Props {
-	initialTime: number;
-	timer: number;
-	isPaused: boolean;
 	handlePauseOrResumeTimer: () => void;
 	handleResetTimer: () => void;
 }
 
-export const MainActionButtons: React.FC<Props> = ({
-	initialTime,
+export const TimerActionButtons: React.FC<Props> = ({
 	handlePauseOrResumeTimer,
-	isPaused,
-	timer,
 	handleResetTimer,
 }: Props) => {
+	const { initialTime, timer, isPaused } = useTimer();
+
 	return (
 		<View style={styles.buttonContainer}>
 			<Button
