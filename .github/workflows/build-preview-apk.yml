@@ -1,0 +1,22 @@
+name: build-preview-apk
+on: [push]
+jobs:
+    build-apk:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: Setup Node v20
+              uses: actions/setup-node@v4.0.1
+              with:
+                  node-version: '20.x'
+
+            - name: Yarn Install
+              uses: borales/actions-yarn@v4
+              with:
+                  cmd: install
+
+            - name: Yarn Build Preview APK
+              uses: borales/actions-yarn@v4
+              with:
+                  cmd: build:dev

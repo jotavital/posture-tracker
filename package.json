@@ -8,7 +8,7 @@
 		"android": "expo start --android",
 		"ios": "expo start --ios",
 		"web": "expo start --web",
-		"build": "eas build -p android --profile preview",
+		"build:dev": "eas build -p android --profile preview",
 		"postinstall": "husky install"
 	},
 	"dependencies": {
