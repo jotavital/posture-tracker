@@ -10,23 +10,21 @@ interface Props {
 
 export const TimePickerModalContent: React.FC<Props> = ({ handleCloseTimePickerModal }: Props) => {
 	const [timeInputValue, setTimeInputValue] = useState<string>('');
-
 	const { setInitialTime } = useTimer();
+
+	const handleChangeTime = (masked: string, unmasked: string) => {
+		setTimeInputValue(unmasked);
+
+		const splittedInputTime = masked.split(':');
+		const inputMinutes = Number(splittedInputTime[0] ?? 0);
+		const inputSeconds = Number(splittedInputTime[1] ?? 0);
+
+		setInitialTime(inputMinutes * 60 * 1000 + inputSeconds * 1000);
+	};
 
 	return (
 		<>
-			<TimeInput
-				value={timeInputValue}
-				onChangeText={(masked, unmasked) => {
-					setTimeInputValue(unmasked);
-
-					const splittedInputTime = masked.split(':');
-					const inputMinutes = Number(splittedInputTime[0] ?? 0);
-					const inputSeconds = Number(splittedInputTime[1] ?? 0);
-
-					setInitialTime(inputMinutes * 60 * 1000 + inputSeconds * 1000);
-				}}
-			/>
+			<TimeInput value={timeInputValue} onChangeText={handleChangeTime} />
 
 			<Button
 				onPress={handleCloseTimePickerModal}
