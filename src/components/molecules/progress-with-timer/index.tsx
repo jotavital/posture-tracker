@@ -28,7 +28,7 @@ export const ProgressWithTimer: React.FC<Props> = ({
 				rotation={360}
 				lineCap='round'
 			>
-				{(fill) => (
+				{() => (
 					<TimeDisplay
 						onPress={handleOpenTimePickerModal}
 						minutes={minutes}
