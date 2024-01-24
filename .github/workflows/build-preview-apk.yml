@@ -16,3 +16,6 @@ jobs:
 
             - name: Yarn Install
               run: yarn
+
+            - name: Build Preview APK on Expo
+              run: yarn build:dev
