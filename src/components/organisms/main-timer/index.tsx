@@ -4,6 +4,7 @@ import { TimeCompletedModalContent } from '~/components/molecules/modal-content/
 import { TimerActionButtons } from '~/components/molecules/timer-action-buttons';
 import { TimerProgressCircle } from '~/components/molecules/timer-progress-circle';
 import { Modal } from '~/components/organisms/modal';
+import { TodaysExercises } from '~/components/organisms/todays-exercises';
 import { useTimer } from '~/contexts/timer-context';
 import { useSound } from '~/hooks/useSound';
 import { cancelVibration, vibrateDevice } from '~/utils/vibrate';
@@ -47,6 +48,8 @@ export const MainTimer: React.FC = () => {
 				handlePauseOrResumeTimer={handlePauseOrResumeTimer}
 				handleResetTimer={handleResetTimer}
 			/>
+
+			<TodaysExercises />
 
 			<Modal
 				isVisible={isTimePickerModalVisible}

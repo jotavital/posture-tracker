@@ -2065,6 +2065,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@expo/websql@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "@expo/websql@npm:1.0.1"
+  dependencies:
+    argsarray: "npm:^0.0.1"
+    immediate: "npm:^3.2.2"
+    noop-fn: "npm:^1.0.0"
+    pouchdb-collections: "npm:^1.0.1"
+    tiny-queue: "npm:^0.2.1"
+  checksum: c5736ef573f571623922648d320f8d65da0ccec3d8a140ebe93ea7036e42ce2cabc23666bac451fcc09518a72647859274f232323d0f7fbffe6a76cdf029561c
+  languageName: node
+  linkType: hard
+
 "@expo/xcpretty@npm:^4.2.1":
   version: 4.3.1
   resolution: "@expo/xcpretty@npm:4.3.1"
@@ -3224,6 +3237,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"argsarray@npm:^0.0.1":
+  version: 0.0.1
+  resolution: "argsarray@npm:0.0.1"
+  checksum: d282742621698b0079ae0d1830cc35355c5a9ad21b831d6b006234ba08cccad3d4215190a9ff696af39587d7a5455cde64ffe94faa7762cda20fbf8c2d530889
+  languageName: node
+  linkType: hard
+
 "array-buffer-byte-length@npm:^1.0.0":
   version: 1.0.0
   resolution: "array-buffer-byte-length@npm:1.0.0"
@@ -4294,6 +4314,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"date-fns@npm:^3.3.1":
+  version: 3.3.1
+  resolution: "date-fns@npm:3.3.1"
+  checksum: e04ff79244010e03b912d791cd3250af5f18866ce868604958d76bd87e5fb0b79f0a810b8e7066248452b41779b288c4fd21de1cac2cd4b6d384e9dd931c9674
+  languageName: node
+  linkType: hard
+
 "dayjs@npm:^1.8.15":
   version: 1.11.10
   resolution: "dayjs@npm:1.11.10"
@@ -5196,6 +5223,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"expo-sqlite@npm:~11.3.3":
+  version: 11.3.3
+  resolution: "expo-sqlite@npm:11.3.3"
+  dependencies:
+    "@expo/websql": "npm:^1.0.1"
+  peerDependencies:
+    expo: "*"
+  checksum: 6bb6736d7eb334ea27b9bcb38ceaa6714e0a25927705ca78711b4137ae26fd73d6c20a04335cedb63cfba402bcb9482875e8b73139a11af0a5df113afddec2d2
+  languageName: node
+  linkType: hard
+
 "expo-status-bar@npm:~1.6.0":
   version: 1.6.0
   resolution: "expo-status-bar@npm:1.6.0"
@@ -6091,6 +6129,13 @@ __metadata:
   bin:
     image-size: bin/image-size.js
   checksum: 2660470096d12be82195f7e80fe03274689fbd14184afb78eaf66ade7cd06352518325814f88af4bde4b26647889fe49e573129f6e7ba8f5ff5b85cc7f559000
+  languageName: node
+  linkType: hard
+
+"immediate@npm:^3.2.2":
+  version: 3.3.0
+  resolution: "immediate@npm:3.3.0"
+  checksum: 40eab095d5944ad79af054700beee97000271fde8743720932d8eb41ccbf2cb8c855ff95b128cf9a7fec523a4f11ee2e392b9f2fa6456b055b1160f1b4ad3e3b
   languageName: node
   linkType: hard
 
@@ -8130,6 +8175,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"noop-fn@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "noop-fn@npm:1.0.0"
+  checksum: 95ca0a65ea2b1f7de8c23be8c9d31797a66e7e861ffd2b79fb151274f3591254861f20b531072e1b9e116d5264186b6fd60c73435168891ee924dae98cc6955e
+  languageName: node
+  linkType: hard
+
 "nopt@npm:^7.0.0":
   version: 7.2.0
   resolution: "nopt@npm:7.2.0"
@@ -8715,6 +8767,7 @@ __metadata:
     "@types/react": "npm:~18.2.14"
     "@typescript-eslint/eslint-plugin": "npm:^6.19.1"
     "@typescript-eslint/parser": "npm:^6.19.1"
+    date-fns: "npm:^3.3.1"
     eslint: "npm:^8.56.0"
     eslint-config-prettier: "npm:^9.1.0"
     eslint-plugin-prettier: "npm:^5.1.3"
@@ -8722,6 +8775,7 @@ __metadata:
     eslint-plugin-react-native: "npm:^4.1.0"
     expo: "npm:~49.0.15"
     expo-av: "npm:~13.4.1"
+    expo-sqlite: "npm:~11.3.3"
     expo-status-bar: "npm:~1.6.0"
     husky: "npm:^8.0.0"
     lint-staged: "npm:^15.2.0"
@@ -8737,6 +8791,13 @@ __metadata:
     typescript: "npm:^5.1.3"
   languageName: unknown
   linkType: soft
+
+"pouchdb-collections@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "pouchdb-collections@npm:1.0.1"
+  checksum: 3a4e414dcdf6bfc0d550f7daffd6f30a2d692a01f1d3944885cabc3e19f27f69074ec433b0be6b6b77077392f0bf1854072339cc10281b22c3fa48ccc744e465
+  languageName: node
+  linkType: hard
 
 "prelude-ls@npm:^1.2.1":
   version: 1.2.1
@@ -10435,6 +10496,13 @@ __metadata:
   version: 2.3.8
   resolution: "through@npm:2.3.8"
   checksum: 4b09f3774099de0d4df26d95c5821a62faee32c7e96fb1f4ebd54a2d7c11c57fe88b0a0d49cf375de5fee5ae6bf4eb56dbbf29d07366864e2ee805349970d3cc
+  languageName: node
+  linkType: hard
+
+"tiny-queue@npm:^0.2.1":
+  version: 0.2.1
+  resolution: "tiny-queue@npm:0.2.1"
+  checksum: 710c658bf84f5e1fe72f2a2d6fbc8e6d078ede1d367968b7d16ca01639ab34aeae9d200b8228c78fe2346bcb16e1654bd013f501e9f7dea687488479438dc0d1
   languageName: node
   linkType: hard
 
