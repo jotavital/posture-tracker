@@ -20,7 +20,8 @@
 				"foregroundImage": "./src/assets/adaptive-icon.png",
 				"backgroundColor": "#ffffff"
 			},
-			"package": "com.jotavital.posturetracker"
+			"package": "com.jotavital.posturetracker",
+			"permissions": ["android.permission.VIBRATE "]
 		},
 		"web": {
 			"favicon": "./src/assets/favicon.png"
