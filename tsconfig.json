@@ -4,6 +4,8 @@
 		"paths": {
 			"~/*": ["*"],
 		},
+		"experimentalDecorators": true,
+		"emitDecoratorMetadata": true,
 	},
 	"extends": "expo/tsconfig.base",
 	"typeRoots": ["types/"],

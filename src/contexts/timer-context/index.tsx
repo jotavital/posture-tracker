@@ -1,5 +1,4 @@
 import { format } from 'date-fns';
-import { openDatabase } from 'expo-sqlite';
 import {
 	Dispatch,
 	ReactNode,
@@ -9,6 +8,7 @@ import {
 	useEffect,
 	useState,
 } from 'react';
+import { useExercises } from '~/contexts/exercise-context';
 import { millisecondsToMinutes, millisecondsToSeconds } from '~/utils/time';
 
 interface TimerProviderProps {
@@ -38,7 +38,7 @@ export const TimerProvider = ({ children }: TimerProviderProps) => {
 	const [timer, setTimer] = useState<number>(0);
 	const [isPaused, setIsPaused] = useState<boolean>(true);
 	const [completedPercentage, setCompletedPercentage] = useState<number>(0);
-	const db = openDatabase('posture-tracker');
+	const { storeExercise } = useExercises();
 
 	const hasFinished = timer <= 0 && completedPercentage === 100;
 	const minutes = millisecondsToMinutes(timer);
@@ -84,23 +84,10 @@ export const TimerProvider = ({ children }: TimerProviderProps) => {
 
 	useEffect(() => {
 		if (hasFinished) {
-			db.exec(
-				[
-					{
-						sql: 'INSERT INTO exercises ("initial_time", "total_time", "end_time") VALUES (?, ?, ?)',
-						args: [
-							initialTime,
-							`${millisecondsToMinutes(initialTime)} minutos e ${millisecondsToSeconds(initialTime)} segundos`,
-							format(new Date(), 'dd/MM/yyyy HH:mm:ss'),
-						],
-					},
-				],
-				false,
-				(err, result) => {
-					console.log(err);
-					console.log(result);
-				},
-			);
+			storeExercise({
+				total_time: `${millisecondsToMinutes(initialTime)} minutos e ${millisecondsToSeconds(initialTime)} segundos`,
+				end_time: format(new Date(), 'dd/MM/yyyy HH:mm:ss'),
+			});
 		}
 	}, [hasFinished]);
 

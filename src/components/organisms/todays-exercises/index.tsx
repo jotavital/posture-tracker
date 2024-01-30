@@ -1,16 +1,9 @@
-import { openDatabase } from 'expo-sqlite';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Text, View } from 'react-native';
+import { useExercises } from '~/contexts/exercise-context';
 
 export const TodaysExercises: React.FC = () => {
-	const [exercises, setExercises] = useState([]);
-	const db = openDatabase('posture-tracker');
-
-	useEffect(() => {
-		db.exec([{ sql: 'SELECT * from exercises', args: [] }], false, (err, res) => {
-			setExercises(res[0].rows);
-		});
-	}, []);
+	const { exercises } = useExercises();
 
 	return (
 		<View>

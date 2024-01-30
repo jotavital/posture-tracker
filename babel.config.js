@@ -14,6 +14,8 @@ module.exports = function (api) {
 						'~/contexts': './src/contexts',
 						'~/utils': './src/utils',
 						'~/hooks': './src/hooks',
+						'~/entities': './src/entities',
+						'~/database': './src/database',
 					},
 				},
 			],
