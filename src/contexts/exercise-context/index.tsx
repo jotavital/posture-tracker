@@ -21,7 +21,10 @@ export const ExerciseProvider = ({ children }: ExerciseProviderProps) => {
 		const db = await dataSource();
 
 		db.getRepository(Exercise)
-			.find()
+			.createQueryBuilder()
+			.addSelect(['*'])
+			.limit(5)
+			.execute()
 			.then((response) => setExercises(response));
 	};
 
@@ -30,7 +33,7 @@ export const ExerciseProvider = ({ children }: ExerciseProviderProps) => {
 
 		const exercise = await db.getRepository(Exercise).save(data);
 
-		setExercises((prevState) => [...prevState, exercise]);
+		setExercises((prevState) => [exercise, ...prevState]);
 	};
 
 	useEffect(() => {

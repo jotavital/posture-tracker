@@ -84,9 +84,12 @@ export const TimerProvider = ({ children }: TimerProviderProps) => {
 
 	useEffect(() => {
 		if (hasFinished) {
+			const totalMinutes = millisecondsToMinutes(initialTime);
+			const totalTime = `${totalMinutes > 0 ? 'minutos e ' : ''}${millisecondsToSeconds(initialTime)} segundos`;
+
 			storeExercise({
-				total_time: `${millisecondsToMinutes(initialTime)} minutos e ${millisecondsToSeconds(initialTime)} segundos`,
-				end_time: format(new Date(), 'dd/MM/yyyy HH:mm:ss'),
+				total_time: totalTime,
+				end_time: format(new Date(), 'dd/MM/yyyy HH:mm'),
 			});
 		}
 	}, [hasFinished]);
