@@ -4,7 +4,6 @@ import { colors } from '~/styles/colors';
 export const styles = StyleSheet.create({
 	container: {
 		backgroundColor: colors.background,
-		borderRadius: 5,
 		display: 'flex',
 		elevation: 1,
 		flexDirection: 'row',
@@ -13,6 +12,9 @@ export const styles = StyleSheet.create({
 	},
 	icons: {
 		textAlignVertical: 'center',
+	},
+	swipeableContainer: {
+		borderRadius: 5,
 	},
 	text: {
 		fontSize: 15,
