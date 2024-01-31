@@ -10,9 +10,13 @@ interface Props {
 }
 
 export const ExerciseInfoCard: React.FC<Props> = ({ exercise }: Props) => {
+	const handleRenderRightActions = (_, dragX) => {
+		return <ExerciseInfoCardRightActions dragX={dragX} exerciseId={exercise.id} />;
+	};
+
 	return (
 		<Swipeable
-			renderRightActions={ExerciseInfoCardRightActions}
+			renderRightActions={handleRenderRightActions}
 			containerStyle={styles.swipeableContainer}
 			overshootRight={false}
 		>
