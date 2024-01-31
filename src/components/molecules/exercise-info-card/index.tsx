@@ -1,13 +1,13 @@
 import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 import { Text, View } from 'react-native';
-import { styles } from '~/components/molecules/exercise-list-item/styles';
+import { styles } from '~/components/molecules/exercise-info-card/styles';
 import { Exercise } from '~/entities/Exercise';
 
 interface Props {
 	exercise: Exercise;
 }
 
-export const ExerciseListItem: React.FC<Props> = ({ exercise }: Props) => {
+export const ExerciseInfoCard: React.FC<Props> = ({ exercise }: Props) => {
 	return (
 		<View style={styles.container}>
 			<View style={styles.timeDisplay}>

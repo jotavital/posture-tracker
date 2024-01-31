@@ -7,4 +7,8 @@ export const styles = StyleSheet.create({
 		marginTop: 10,
 		padding: 10,
 	},
+	title: {
+		fontSize: 18,
+		fontWeight: '500',
+	},
 });

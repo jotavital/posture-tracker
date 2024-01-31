@@ -1,6 +1,6 @@
 import React from 'react';
-import { View } from 'react-native';
-import { ExerciseListItem } from '~/components/molecules/exercise-list-item';
+import { Text, View } from 'react-native';
+import { ExerciseInfoCard } from '~/components/molecules/exercise-info-card';
 import { styles } from '~/components/organisms/todays-exercises/styles';
 import { useExercises } from '~/contexts/exercise-context';
 
@@ -9,10 +9,11 @@ export const TodaysExercises: React.FC = () => {
 
 	return (
 		<View style={styles.container}>
+			<Text style={styles.title}>Hoje</Text>
 			{exercises.length ? (
 				<>
 					{exercises.map((exercise) => {
-						return <ExerciseListItem key={exercise.id} exercise={exercise} />;
+						return <ExerciseInfoCard key={exercise.id} exercise={exercise} />;
 					})}
 				</>
 			) : null}
