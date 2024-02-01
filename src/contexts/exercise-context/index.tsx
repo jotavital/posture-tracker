@@ -2,10 +2,6 @@ import { ReactNode, createContext, useContext, useEffect, useState } from 'react
 import { dataSource } from '~/database';
 import { Exercise } from '~/entities/Exercise';
 
-interface ExerciseProviderProps {
-	children: ReactNode;
-}
-
 interface ExerciseContextValue {
 	exercises: Exercise[];
 	fetchExercises: () => void;
@@ -18,7 +14,7 @@ interface ExerciseContextValue {
 
 const ExerciseContext = createContext<ExerciseContextValue>({} as ExerciseContextValue);
 
-export const ExerciseProvider = ({ children }: ExerciseProviderProps) => {
+export const ExerciseProvider = ({ children }: { children: ReactNode }) => {
 	const [exercises, setExercises] = useState<Exercise[]>([]);
 	const [isDeleteModalVisible, setIsDeleteModalVisible] = useState<boolean>(false);
 	const [exerciseIdToDelete, setExerciseIdToDelete] = useState<number | undefined>(undefined);

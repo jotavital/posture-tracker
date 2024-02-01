@@ -11,10 +11,6 @@ import {
 import { useExercises } from '~/contexts/exercise-context';
 import { millisecondsToMinutes, millisecondsToSeconds } from '~/utils/time';
 
-interface TimerProviderProps {
-	children: ReactNode;
-}
-
 interface TimerContextValue {
 	initialTime: number;
 	setInitialTime: Dispatch<SetStateAction<number>>;
@@ -33,7 +29,7 @@ interface TimerContextValue {
 
 const TimerContext = createContext<TimerContextValue>({} as TimerContextValue);
 
-export const TimerProvider = ({ children }: TimerProviderProps) => {
+export const TimerProvider = ({ children }: { children: ReactNode }) => {
 	const [initialTime, setInitialTime] = useState<number>(0);
 	const [timer, setTimer] = useState<number>(0);
 	const [isPaused, setIsPaused] = useState<boolean>(true);

@@ -5,13 +5,15 @@ import { DeleteExerciseModalContent } from '~/components/molecules/modal-content
 import { styles } from '~/components/organisms/latest-exercises/styles';
 import { Modal } from '~/components/organisms/modal';
 import { useExercises } from '~/contexts/exercise-context';
+import { useTheme } from '~/contexts/theme-context';
 
 export const LatestExercises: React.FC = () => {
+	const { colors } = useTheme();
 	const { exercises, isDeleteModalVisible, handleCloseDeleteModal } = useExercises();
 
 	return (
 		<View style={styles.container}>
-			<Text style={styles.title}>Recente</Text>
+			<Text style={{ ...styles.title, color: colors.text }}>Recente</Text>
 			{exercises.length ? (
 				<>
 					{exercises.map((exercise) => {

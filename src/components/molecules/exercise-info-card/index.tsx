@@ -3,14 +3,16 @@ import { Text, View } from 'react-native';
 import { Swipeable } from 'react-native-gesture-handler';
 import { ExerciseInfoCardRightActions } from '~/components/molecules/exercise-info-card/right-actions';
 import { styles } from '~/components/molecules/exercise-info-card/styles';
+import { useTheme } from '~/contexts/theme-context';
 import { Exercise } from '~/entities/Exercise';
-import { colors } from '~/styles/colors';
 
 interface Props {
 	exercise: Exercise;
 }
 
 export const ExerciseInfoCard: React.FC<Props> = ({ exercise }: Props) => {
+	const { colors } = useTheme();
+
 	const handleRenderRightActions = (_, dragX) => {
 		return <ExerciseInfoCardRightActions dragX={dragX} exerciseId={exercise.id} />;
 	};
@@ -21,7 +23,7 @@ export const ExerciseInfoCard: React.FC<Props> = ({ exercise }: Props) => {
 			containerStyle={styles.swipeableContainer}
 			overshootRight={false}
 		>
-			<View style={styles.container}>
+			<View style={{ ...styles.container, backgroundColor: colors.contrastBackground }}>
 				<View style={styles.timeDisplay}>
 					<MaterialCommunityIcons
 						name='timer-sand-complete'
@@ -29,7 +31,9 @@ export const ExerciseInfoCard: React.FC<Props> = ({ exercise }: Props) => {
 						color={colors.text}
 						style={styles.icons}
 					/>
-					<Text style={styles.text}>{exercise.total_time}</Text>
+					<Text style={{ ...styles.text, color: colors.text }}>
+						{exercise.total_time}
+					</Text>
 				</View>
 				<View style={styles.timeDisplay}>
 					<AntDesign
@@ -38,7 +42,7 @@ export const ExerciseInfoCard: React.FC<Props> = ({ exercise }: Props) => {
 						color={colors.text}
 						style={styles.icons}
 					/>
-					<Text style={styles.text}>{exercise.end_time}</Text>
+					<Text style={{ ...styles.text, color: colors.text }}>{exercise.end_time}</Text>
 				</View>
 			</View>
 		</Swipeable>

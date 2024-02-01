@@ -2,7 +2,7 @@ import { FontAwesome } from '@expo/vector-icons';
 import { Animated } from 'react-native';
 import { IconButton } from '~/components/atoms/button/icon-button';
 import { useExercises } from '~/contexts/exercise-context';
-import { colors } from '~/styles/colors';
+import { useTheme } from '~/contexts/theme-context';
 
 interface Props {
 	dragX: Animated.AnimatedInterpolation<string | number>;
@@ -10,6 +10,7 @@ interface Props {
 }
 
 export const ExerciseInfoCardRightActions: React.FC<Props> = ({ dragX, exerciseId }: Props) => {
+	const { colors } = useTheme();
 	const { handleOpenDeleteModal } = useExercises();
 
 	const translateX = dragX.interpolate({

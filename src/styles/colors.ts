@@ -1,49 +1,29 @@
-import { Appearance } from 'react-native';
+import { ColorSchemeName } from 'react-native';
+import { Colors } from '~/contexts/theme-context/types';
 
-interface Colors {
-	white: string;
-	black: string;
-	red: string;
-	green: string;
-	blue: string;
-	yellow: string;
-	darkGray: string;
-	lighGray: string;
-	background: string;
-	transparent: string;
-	text: string;
-	contrastBackground?: string;
-}
-
-const colorScheme = Appearance.getColorScheme();
-
-const lightColors: Colors = {
-	white: '#ffffff',
+export const lightColors: Colors = {
+	background: '#ffffff',
 	black: '#000000',
-	red: '#EF476F',
-	green: '#29bf12',
 	blue: '#0496ff',
-	yellow: '#FFD166',
+	contrastBackground: '#E0E0E0',
 	darkGray: '#073B4C',
+	green: '#29bf12',
 	lighGray: '#c9c9c9',
-	background: '#ededed',
-	transparent: '#ffffff66',
+	red: '#EF476F',
 	text: '#000000',
+	transparent: '#ffffff66',
+	white: '#ffffff',
+	yellow: '#FFD166',
 };
 
-const darkColors = {
+export const darkColors: Colors = {
 	...lightColors,
 
 	background: '#121212',
 	contrastBackground: '#ffffff1f',
-	transparent: '#ffffff66',
 	text: '#ffffffde',
 };
 
-let colors = lightColors;
-
-if (colorScheme === 'dark') {
-	colors = darkColors;
-}
-
-export { colors };
+export const getColors = (colorScheme: ColorSchemeName) => {
+	return colorScheme === 'dark' ? darkColors : lightColors;
+};

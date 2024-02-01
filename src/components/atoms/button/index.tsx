@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { ColorValue, Pressable, StyleProp, Text, ViewStyle } from 'react-native';
 import { styles } from '~/components/atoms/button/styles';
-import { colors } from '~/styles/colors';
+import { useTheme } from '~/contexts/theme-context';
 
 interface Props {
 	onPress?: () => void;
@@ -22,6 +22,8 @@ export const Button: React.FC<Props> = ({
 	textColor = undefined,
 	...rest
 }: Props) => {
+	const { colors } = useTheme();
+
 	return (
 		<Pressable
 			style={[

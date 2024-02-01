@@ -2,14 +2,15 @@ import { View } from 'react-native';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import { TimeDisplay } from '~/components/atoms/time-display';
 import { styles } from '~/components/molecules/timer-progress-circle/styles';
+import { useTheme } from '~/contexts/theme-context';
 import { useTimer } from '~/contexts/timer-context';
-import { colors } from '~/styles/colors';
 
 interface Props {
 	handleOpenTimePickerModal: () => void;
 }
 
 export const TimerProgressCircle: React.FC<Props> = ({ handleOpenTimePickerModal }: Props) => {
+	const { colors } = useTheme();
 	const { completedPercentage, minutes, seconds } = useTimer();
 
 	return (

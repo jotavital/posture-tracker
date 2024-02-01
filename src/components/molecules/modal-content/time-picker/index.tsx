@@ -2,14 +2,15 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { useState } from 'react';
 import { Button } from '~/components/atoms/button';
 import { TimeInput } from '~/components/atoms/time-input';
+import { useTheme } from '~/contexts/theme-context';
 import { useTimer } from '~/contexts/timer-context';
-import { colors } from '~/styles/colors';
 
 interface Props {
 	handleCloseTimePickerModal: () => void;
 }
 
 export const TimePickerModalContent: React.FC<Props> = ({ handleCloseTimePickerModal }: Props) => {
+	const { colors } = useTheme();
 	const [timeInputValue, setTimeInputValue] = useState<string>('');
 	const { setInitialTime } = useTimer();
 

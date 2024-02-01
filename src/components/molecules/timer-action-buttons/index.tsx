@@ -1,11 +1,12 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { View } from 'react-native';
 import { Button } from '~/components/atoms/button';
+import { useTheme } from '~/contexts/theme-context';
 import { useTimer } from '~/contexts/timer-context';
-import { colors } from '~/styles/colors';
 import { styles } from './styles';
 
 export const TimerActionButtons: React.FC = () => {
+	const { colors } = useTheme();
 	const { initialTime, timer, isPaused, handlePauseOrResumeTimer, handleResetTimer } = useTimer();
 
 	return (
