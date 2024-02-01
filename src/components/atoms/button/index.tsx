@@ -27,14 +27,14 @@ export const Button: React.FC<Props> = ({
 			style={[
 				styles.button,
 				disabled && styles.disabled,
-				{ backgroundColor: bg ?? colors.background },
+				{ backgroundColor: bg ?? colors.contrastBackground },
 				rest && rest.style,
 			]}
 			onPress={onPress && onPress}
 			android_ripple={{ color: colors.transparent }}
 		>
 			{leftIcon && <Text style={styles.buttonText}>{leftIcon}</Text>}
-			<Text style={[styles.buttonText, { color: textColor ?? colors.black }]}>{title}</Text>
+			<Text style={[styles.buttonText, { color: textColor ?? colors.text }]}>{title}</Text>
 		</Pressable>
 	);
 };

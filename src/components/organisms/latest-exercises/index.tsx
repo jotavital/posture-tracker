@@ -2,16 +2,16 @@ import React from 'react';
 import { Text, View } from 'react-native';
 import { ExerciseInfoCard } from '~/components/molecules/exercise-info-card';
 import { DeleteExerciseModalContent } from '~/components/molecules/modal-content/delete-exercise';
+import { styles } from '~/components/organisms/latest-exercises/styles';
 import { Modal } from '~/components/organisms/modal';
-import { styles } from '~/components/organisms/todays-exercises/styles';
 import { useExercises } from '~/contexts/exercise-context';
 
-export const TodaysExercises: React.FC = () => {
+export const LatestExercises: React.FC = () => {
 	const { exercises, isDeleteModalVisible, handleCloseDeleteModal } = useExercises();
 
 	return (
 		<View style={styles.container}>
-			<Text style={styles.title}>Hoje</Text>
+			<Text style={styles.title}>Recente</Text>
 			{exercises.length ? (
 				<>
 					{exercises.map((exercise) => {

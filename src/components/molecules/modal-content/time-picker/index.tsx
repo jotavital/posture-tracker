@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Button } from '~/components/atoms/button';
 import { TimeInput } from '~/components/atoms/time-input';
 import { useTimer } from '~/contexts/timer-context';
+import { colors } from '~/styles/colors';
 
 interface Props {
 	handleCloseTimePickerModal: () => void;
@@ -29,7 +30,9 @@ export const TimePickerModalContent: React.FC<Props> = ({ handleCloseTimePickerM
 			<Button
 				onPress={handleCloseTimePickerModal}
 				title='Pronto'
-				leftIcon={<Ionicons name='checkmark-circle-outline' size={20} />}
+				leftIcon={
+					<Ionicons name='checkmark-circle-outline' size={20} color={colors.text} />
+				}
 			/>
 		</>
 	);

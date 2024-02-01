@@ -19,7 +19,7 @@ export const TimerProgressCircle: React.FC<Props> = ({ handleOpenTimePickerModal
 				width={10}
 				fill={completedPercentage}
 				tintColor={colors.blue}
-				backgroundColor={colors.background}
+				backgroundColor={colors.contrastBackground}
 				rotation={360}
 				lineCap='round'
 			>

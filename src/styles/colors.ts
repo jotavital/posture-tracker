@@ -1,4 +1,23 @@
-const colors = {
+import { Appearance } from 'react-native';
+
+interface Colors {
+	white: string;
+	black: string;
+	red: string;
+	green: string;
+	blue: string;
+	yellow: string;
+	darkGray: string;
+	lighGray: string;
+	background: string;
+	transparent: string;
+	text: string;
+	contrastBackground?: string;
+}
+
+const colorScheme = Appearance.getColorScheme();
+
+const lightColors: Colors = {
 	white: '#ffffff',
 	black: '#000000',
 	red: '#EF476F',
@@ -9,11 +28,22 @@ const colors = {
 	lighGray: '#c9c9c9',
 	background: '#ededed',
 	transparent: '#ffffff66',
+	text: '#000000',
 };
 
-const colorStyles = {
-	red: { color: colors.red },
-	green: { color: colors.green },
+const darkColors = {
+	...lightColors,
+
+	background: '#121212',
+	contrastBackground: '#ffffff1f',
+	transparent: '#ffffff66',
+	text: '#ffffffde',
 };
 
-export { colorStyles, colors };
+let colors = lightColors;
+
+if (colorScheme === 'dark') {
+	colors = darkColors;
+}
+
+export { colors };

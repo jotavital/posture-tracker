@@ -3,14 +3,14 @@ import { TimePickerModalContent } from '~/components/molecules/modal-content/tim
 import { TimeCompletedModalContent } from '~/components/molecules/modal-content/timer-completed';
 import { TimerActionButtons } from '~/components/molecules/timer-action-buttons';
 import { TimerProgressCircle } from '~/components/molecules/timer-progress-circle';
+import { LatestExercises } from '~/components/organisms/latest-exercises';
 import { Modal } from '~/components/organisms/modal';
-import { TodaysExercises } from '~/components/organisms/todays-exercises';
 import { useTimer } from '~/contexts/timer-context';
 import { useSound } from '~/hooks/useSound';
 import { cancelVibration, vibrateDevice } from '~/utils/vibrate';
 
 export const MainTimer: React.FC = () => {
-	const { isPaused, handlePauseOrResumeTimer, hasFinished, handleResetTimer } = useTimer();
+	const { isPaused, hasFinished, handleResetTimer } = useTimer();
 	const { stopSound, playSound } = useSound();
 
 	const [isTimePickerModalVisible, setIsTimePickerModalVisible] = useState<boolean>(false);
@@ -44,12 +44,9 @@ export const MainTimer: React.FC = () => {
 		<>
 			<TimerProgressCircle handleOpenTimePickerModal={handleOpenTimePickerModal} />
 
-			<TimerActionButtons
-				handlePauseOrResumeTimer={handlePauseOrResumeTimer}
-				handleResetTimer={handleResetTimer}
-			/>
+			<TimerActionButtons />
 
-			<TodaysExercises />
+			<LatestExercises />
 
 			<Modal
 				isVisible={isTimePickerModalVisible}

@@ -1,5 +1,6 @@
 import MaskInput from 'react-native-mask-input';
 import { styles } from '~/components/atoms/time-input/styles';
+import { colors } from '~/styles/colors';
 
 interface Props {
 	value: string;
@@ -15,6 +16,7 @@ export const TimeInput: React.FC<Props> = ({ value, onChangeText }: Props) => {
 			keyboardType='numeric'
 			style={styles.maskInput}
 			autoFocus
+			placeholderTextColor={colors.text}
 		/>
 	);
 };

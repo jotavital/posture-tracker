@@ -22,7 +22,7 @@ export const ExerciseInfoCardRightActions: React.FC<Props> = ({ dragX, exerciseI
 		<Animated.View style={{ width: 50, transform: [{ translateX: translateX }] }}>
 			<IconButton
 				onPress={() => handleOpenDeleteModal(exerciseId)}
-				icon={<FontAwesome name='trash-o' size={24} color={colors.white} />}
+				icon={<FontAwesome name='trash-o' size={24} color={colors.text} />}
 				bg={colors.red}
 			/>
 		</Animated.View>
