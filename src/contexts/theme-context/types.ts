@@ -1,14 +1,15 @@
 export interface Colors {
-	white: string;
-	black: string;
-	red: string;
-	green: string;
-	blue: string;
-	yellow: string;
-	darkGray: string;
-	lighGray: string;
 	background: string;
-	transparent: string;
-	text: string;
+	black: string;
+	blue: string;
 	contrastBackground?: string;
+	contrastText?: string;
+	darkGray: string;
+	green: string;
+	lighGray: string;
+	red: string;
+	text: string;
+	transparent: string;
+	white: string;
+	yellow: string;
 }

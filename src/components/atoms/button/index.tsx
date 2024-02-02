@@ -1,42 +1,42 @@
-import { ReactNode } from 'react';
-import { ColorValue, Pressable, StyleProp, Text, ViewStyle } from 'react-native';
+import { Pressable, Text } from 'react-native';
 import { styles } from '~/components/atoms/button/styles';
+import { ButtonProps } from '~/components/atoms/button/types';
 import { useTheme } from '~/contexts/theme-context';
 
-interface Props {
-	onPress?: () => void;
-	disabled?: boolean;
-	leftIcon?: ReactNode;
-	title: string;
-	style?: StyleProp<ViewStyle>;
-	bg?: ColorValue;
-	textColor?: ColorValue;
-}
-
-export const Button: React.FC<Props> = ({
+export const Button: React.FC<ButtonProps> = ({
 	disabled = false,
 	onPress = null,
 	leftIcon = null,
-	title,
+	title = undefined,
 	bg = undefined,
 	textColor = undefined,
+	shape = 'rounded',
+	height = 'auto',
 	...rest
-}: Props) => {
+}: ButtonProps) => {
 	const { colors } = useTheme();
+
+	const stylesFromProps = { backgroundColor: bg ?? colors.contrastBackground, height: height };
 
 	return (
 		<Pressable
 			style={[
 				styles.button,
 				disabled && styles.disabled,
-				{ backgroundColor: bg ?? colors.contrastBackground },
+				shape && styles[shape],
+				stylesFromProps,
 				rest && rest.style,
 			]}
 			onPress={onPress && onPress}
 			android_ripple={{ color: colors.transparent }}
+			disabled={disabled}
 		>
 			{leftIcon && <Text style={styles.buttonText}>{leftIcon}</Text>}
-			<Text style={[styles.buttonText, { color: textColor ?? colors.text }]}>{title}</Text>
+			{title && (
+				<Text style={[styles.buttonText, { color: textColor ?? colors.text }]}>
+					{title}
+				</Text>
+			)}
 		</Pressable>
 	);
 };

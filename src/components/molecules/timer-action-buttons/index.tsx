@@ -23,7 +23,7 @@ export const TimerActionButtons: React.FC = () => {
 			{timer !== initialTime && (
 				<Button
 					onPress={() => handleResetTimer()}
-					leftIcon={<Ionicons name='stop' size={20} />}
+					leftIcon={<Ionicons name='stop' size={20} color={colors.text} />}
 					title='Parar'
 				/>
 			)}

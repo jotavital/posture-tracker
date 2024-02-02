@@ -2,10 +2,10 @@ import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
 	button: {
-		borderRadius: 6,
 		display: 'flex',
 		flexDirection: 'row',
 		gap: 5,
+		justifyContent: 'center',
 		padding: 10,
 	},
 	buttonText: {
@@ -15,5 +15,11 @@ export const styles = StyleSheet.create({
 	},
 	disabled: {
 		opacity: 0.5,
+	},
+	rounded: {
+		borderRadius: 6,
+	},
+	square: {
+		borderRadius: 0,
 	},
 });
