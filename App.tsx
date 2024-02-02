@@ -1,33 +1,29 @@
-import { StatusBar } from 'expo-status-bar';
-import { useColorScheme } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { MainTimer } from '~/components/organisms/main-timer';
+import { CustomStatusBar } from '~/components/atoms/status-bar';
+import { MainNavigator } from '~/components/organisms/navigators/main-navigator';
 import { ExerciseProvider } from '~/contexts/exercise-context';
 import { ThemeProvider } from '~/contexts/theme-context';
 import { TimerProvider } from '~/contexts/timer-context';
-import { getColors } from '~/styles/colors';
 import { styles } from './styles';
 
 export default function App() {
-	const colorScheme = useColorScheme();
-
-	const colors = getColors(colorScheme);
-
 	return (
-		<SafeAreaView style={{ ...styles.safeAreaView, backgroundColor: colors.background }}>
-			{/* eslint-disable-next-line react-native/no-inline-styles */}
-			<GestureHandlerRootView style={{ flex: 1 }}>
-				<StatusBar style='auto' />
-
-				<ThemeProvider>
-					<ExerciseProvider>
-						<TimerProvider>
-							<MainTimer />
-						</TimerProvider>
-					</ExerciseProvider>
-				</ThemeProvider>
-			</GestureHandlerRootView>
-		</SafeAreaView>
+		<NavigationContainer>
+			<SafeAreaView style={{ ...styles.safeAreaView }}>
+				{/* eslint-disable-next-line react-native/no-inline-styles */}
+				<GestureHandlerRootView style={{ flex: 1 }}>
+					<ThemeProvider>
+						<ExerciseProvider>
+							<TimerProvider>
+								<CustomStatusBar />
+								<MainNavigator />
+							</TimerProvider>
+						</ExerciseProvider>
+					</ThemeProvider>
+				</GestureHandlerRootView>
+			</SafeAreaView>
+		</NavigationContainer>
 	);
 }

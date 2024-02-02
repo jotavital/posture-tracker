@@ -7,6 +7,7 @@ export interface Colors {
 	darkGray: string;
 	green: string;
 	lighGray: string;
+	primary: string;
 	red: string;
 	text: string;
 	transparent: string;
