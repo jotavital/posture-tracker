@@ -26,6 +26,8 @@ export const darkColors: Colors = {
 	text: '#ffffffde',
 };
 
-export const getColors = (colorScheme: ColorSchemeName) => {
-	return colorScheme === 'dark' ? darkColors : lightColors;
+export const getColors = (colorScheme: ColorSchemeName, colorsToInject: Colors = {}) => {
+	return colorScheme === 'dark'
+		? { ...darkColors, ...colorsToInject }
+		: { ...lightColors, ...colorsToInject };
 };

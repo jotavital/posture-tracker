@@ -17,6 +17,7 @@ interface ThemeContextValue {
 	isDark: boolean;
 	isLight: boolean;
 	setSelectedColorScheme: Dispatch<SetStateAction<ColorSchemeName>>;
+	setColorsToInject: Dispatch<SetStateAction<Colors>>;
 }
 
 const ThemeContext = createContext<ThemeContextValue>({} as ThemeContextValue);
@@ -27,9 +28,10 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
 		Appearance.getColorScheme(),
 	);
 	const [colorScheme, setColorScheme] = useState<ColorSchemeName>(Appearance.getColorScheme());
+	const [colorsToInject, setColorsToInject] = useState<Colors>({});
 	const isDark = colorScheme === 'dark';
 	const isLight = colorScheme === 'light';
-	const colors = getColors(colorScheme);
+	const colors = getColors(colorScheme, colorsToInject);
 
 	useEffect(() => {
 		if (selectedColorScheme === 'system') {
@@ -47,7 +49,14 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
 
 	return (
 		<ThemeContext.Provider
-			value={{ colors, colorScheme, isDark, isLight, setSelectedColorScheme }}
+			value={{
+				colors,
+				colorScheme,
+				isDark,
+				isLight,
+				setSelectedColorScheme,
+				setColorsToInject,
+			}}
 		>
 			{children}
 		</ThemeContext.Provider>

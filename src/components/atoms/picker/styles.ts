@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
-	container: { display: 'flex', flexDirection: 'row' },
+	container: { display: 'flex', flexDirection: 'row', flex: 1 },
 	label: { flex: 1, textAlignVertical: 'center' },
 	pickerViewContainer: {
 		borderRadius: 6,

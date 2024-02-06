@@ -9,6 +9,7 @@ interface Props {
 	onChange?: (value: any, index: number) => void;
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	defaultValue?: any;
+	label?: string;
 	placeholder?: Item | Record<string, never>;
 }
 
@@ -16,13 +17,14 @@ export const Picker: React.FC<Props> = ({
 	items,
 	onChange = undefined,
 	defaultValue = undefined,
+	label = undefined,
 	placeholder = {},
 }: Props) => {
 	const { colors } = useTheme();
 
 	return (
 		<View style={styles.container}>
-			<Text style={{ ...styles.label, color: colors.text }}>Tema</Text>
+			{label && <Text style={{ ...styles.label, color: colors.text }}>{label}</Text>}
 
 			<RNPickerSelect
 				items={items}
