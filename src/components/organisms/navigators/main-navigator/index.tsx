@@ -1,5 +1,6 @@
-import { AntDesign } from '@expo/vector-icons';
+import { AntDesign, Feather } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { ExercisesScreen } from '~/components/organisms/screens/exercises';
 import { HomeScreen } from '~/components/organisms/screens/home';
 import { SettingsScreen } from '~/components/organisms/screens/settings';
 import { useTheme } from '~/contexts/theme-context';
@@ -16,6 +17,7 @@ export const MainNavigator: React.FC = () => {
 				tabBarLabelStyle: { fontSize: 12 },
 			}}
 			sceneContainerStyle={{ backgroundColor: colors.background }}
+			initialRouteName='exercises'
 		>
 			<Tab.Screen
 				name='timer'
@@ -26,6 +28,17 @@ export const MainNavigator: React.FC = () => {
 						return <AntDesign name='clockcircleo' size={20} color={color} />;
 					},
 					tabBarLabel: 'Timer',
+				}}
+			/>
+			<Tab.Screen
+				name='exercises'
+				component={ExercisesScreen}
+				options={{
+					headerShown: false,
+					tabBarIcon: ({ color }) => {
+						return <Feather name='list' size={24} color={color} />;
+					},
+					tabBarLabel: 'Histórico',
 				}}
 			/>
 			<Tab.Screen

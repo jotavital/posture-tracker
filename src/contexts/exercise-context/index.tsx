@@ -1,21 +1,28 @@
-import { ReactNode, createContext, useContext, useEffect, useState } from 'react';
+import { format } from 'date-fns';
+import { ReactNode, createContext, useContext, useState } from 'react';
+import { DeleteExerciseModalContent } from '~/components/molecules/modal-content/delete-exercise';
+import { Modal } from '~/components/organisms/modal';
 import { dataSource } from '~/database';
 import { Exercise } from '~/entities/Exercise';
 
-interface ExerciseContextValue {
-	exercises: Exercise[];
-	fetchExercises: () => void;
-	storeExercise: (data: Exercise) => void;
-	isDeleteModalVisible: boolean;
-	handleOpenDeleteModal: (exerciseId: number) => void;
-	handleCloseDeleteModal: () => void;
+export interface ExerciseContextValue {
 	deleteExercise: () => void;
+	fetchLatestExercises: () => void;
+	fetchTodaysExercises: () => void;
+	handleCloseDeleteModal: () => void;
+	handleOpenDeleteModal: (exerciseId: number) => void;
+	isDeleteModalVisible: boolean;
+	latestExercises: Exercise[];
+	storeExercise: (data: Exercise) => void;
+	todaysExercises: Exercise[];
 }
 
 const ExerciseContext = createContext<ExerciseContextValue>({} as ExerciseContextValue);
 
 export const ExerciseProvider = ({ children }: { children: ReactNode }) => {
-	const [exercises, setExercises] = useState<Exercise[]>([]);
+	// TODO mover os state pra hooks
+	const [todaysExercises, setTodaysExercises] = useState<Exercise[]>([]);
+	const [latestExercises, setLatestExercises] = useState<Exercise[]>([]);
 	const [isDeleteModalVisible, setIsDeleteModalVisible] = useState<boolean>(false);
 	const [exerciseIdToDelete, setExerciseIdToDelete] = useState<number | undefined>(undefined);
 
@@ -36,10 +43,10 @@ export const ExerciseProvider = ({ children }: { children: ReactNode }) => {
 
 		handleCloseDeleteModal();
 
-		fetchExercises();
+		fetchLatestExercises();
 	};
 
-	const fetchExercises = async () => {
+	const fetchLatestExercises = async () => {
 		const db = await dataSource();
 
 		db.getRepository(Exercise)
@@ -48,7 +55,24 @@ export const ExerciseProvider = ({ children }: { children: ReactNode }) => {
 			.addOrderBy('id', 'DESC')
 			.limit(5)
 			.execute()
-			.then((response) => setExercises(response));
+			.then((response) => setLatestExercises(response));
+	};
+
+	const fetchTodaysExercises = async () => {
+		const db = await dataSource();
+
+		db.getRepository(Exercise)
+			.createQueryBuilder()
+			.addSelect(['*', 'date(created_at)'])
+			.addOrderBy('id', 'DESC')
+			.where("date(created_at, 'localtime') = :createdAt", {
+				createdAt: format(new Date(), 'y-MM-dd'),
+			})
+			.execute()
+			.then((response) => {
+				console.log(response);
+				setTodaysExercises(response);
+			});
 	};
 
 	const storeExercise = async (data: Exercise) => {
@@ -56,26 +80,35 @@ export const ExerciseProvider = ({ children }: { children: ReactNode }) => {
 
 		const exercise = await db.getRepository(Exercise).save(data);
 
-		setExercises((prevState) => [exercise, ...prevState]);
+		setLatestExercises((prevState) => [exercise, ...prevState]);
 	};
-
-	useEffect(() => {
-		fetchExercises();
-	}, []);
 
 	return (
 		<ExerciseContext.Provider
 			value={{
-				exercises,
-				fetchExercises,
-				storeExercise,
-				isDeleteModalVisible,
-				handleOpenDeleteModal,
-				handleCloseDeleteModal,
 				deleteExercise,
+				fetchLatestExercises,
+				handleCloseDeleteModal,
+				handleOpenDeleteModal,
+				isDeleteModalVisible,
+				latestExercises,
+				storeExercise,
+				fetchTodaysExercises,
+				todaysExercises,
 			}}
 		>
 			{children}
+
+			<Modal
+				isVisible={isDeleteModalVisible}
+				title='Tem certeza?'
+				onBackdropPress={handleCloseDeleteModal}
+			>
+				<DeleteExerciseModalContent
+					deleteExercise={deleteExercise}
+					handleCloseDeleteModal={handleCloseDeleteModal}
+				/>
+			</Modal>
 		</ExerciseContext.Provider>
 	);
 };

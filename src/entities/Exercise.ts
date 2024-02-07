@@ -18,12 +18,12 @@ export class Exercise {
 	@Column('varchar')
 	end_time: string;
 
-	@CreateDateColumn()
+	@CreateDateColumn({ type: 'datetime' })
 	created_at?: Date;
 
-	@UpdateDateColumn()
+	@UpdateDateColumn({ type: 'datetime' })
 	updated_at?: Date;
 
-	@DeleteDateColumn()
+	@DeleteDateColumn({ type: 'datetime' })
 	deleted_at?: Date;
 }

@@ -16,6 +16,7 @@ module.exports = function (api) {
 						'~/hooks': './src/hooks',
 						'~/entities': './src/entities',
 						'~/database': './src/database',
+						'~/lang': './src/lang',
 					},
 				},
 			],

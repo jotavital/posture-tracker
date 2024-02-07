@@ -1,34 +1,28 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Text, View } from 'react-native';
 import { ExerciseInfoCard } from '~/components/molecules/exercise-info-card';
-import { DeleteExerciseModalContent } from '~/components/molecules/modal-content/delete-exercise';
 import { styles } from '~/components/organisms/latest-exercises/styles';
-import { Modal } from '~/components/organisms/modal';
 import { useExercises } from '~/contexts/exercise-context';
 import { useTheme } from '~/contexts/theme-context';
 
 export const LatestExercises: React.FC = () => {
 	const { colors } = useTheme();
-	const { exercises, isDeleteModalVisible, handleCloseDeleteModal } = useExercises();
+	const { latestExercises, fetchLatestExercises } = useExercises();
+
+	useEffect(() => {
+		fetchLatestExercises();
+	}, []);
 
 	return (
 		<View style={styles.container}>
 			<Text style={{ ...styles.title, color: colors.text }}>Recente</Text>
-			{exercises.length ? (
+			{latestExercises.length ? (
 				<>
-					{exercises.map((exercise) => {
+					{latestExercises.map((exercise) => {
 						return <ExerciseInfoCard key={exercise.id} exercise={exercise} />;
 					})}
 				</>
 			) : null}
-
-			<Modal
-				isVisible={isDeleteModalVisible}
-				title='Tem certeza?'
-				onBackdropPress={handleCloseDeleteModal}
-			>
-				<DeleteExerciseModalContent />
-			</Modal>
 		</View>
 	);
 };
