@@ -1,3 +1,17 @@
+import { ColorSchemeName } from 'react-native';
+
+export interface ThemeContextValue {
+	colors: Colors;
+	colorScheme: ColorSchemeName;
+	selectedColorScheme: SelectColorSchemeOptions;
+	isDark: boolean;
+	isLight: boolean;
+	handleSetSelectedColorScheme: (colorScheme: ColorSchemeName) => void;
+	handleSetUserColors: (colors: Colors) => void;
+}
+
+export type SelectColorSchemeOptions = ColorSchemeName | 'system';
+
 export interface Colors {
 	background?: string;
 	black?: string;

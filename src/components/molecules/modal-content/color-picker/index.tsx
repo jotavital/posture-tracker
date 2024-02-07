@@ -14,7 +14,7 @@ interface Props {
 export const ColorPickerModalContent: React.FC<Props> = ({
 	setIsColorPickerModalVisible,
 }: Props) => {
-	const { colors, setColorsToInject } = useTheme();
+	const { colors, handleSetUserColors } = useTheme();
 	const [pickerColor, setPickerColor] = useState<string>(colors.primary);
 
 	const onCompletePickColor = ({ hex }: returnedResults) => {
@@ -22,7 +22,7 @@ export const ColorPickerModalContent: React.FC<Props> = ({
 	};
 
 	const handleSetPrimaryColor = () => {
-		setColorsToInject({ primary: pickerColor });
+		handleSetUserColors({ primary: pickerColor });
 		setIsColorPickerModalVisible(false);
 	};
 

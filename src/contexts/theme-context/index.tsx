@@ -1,61 +1,91 @@
-import {
-	Dispatch,
-	ReactNode,
-	SetStateAction,
-	createContext,
-	useContext,
-	useEffect,
-	useState,
-} from 'react';
+import { ReactNode, createContext, useContext, useEffect, useState } from 'react';
 import { Appearance, ColorSchemeName, useColorScheme } from 'react-native';
-import { Colors } from '~/contexts/theme-context/types';
+import {
+	Colors,
+	SelectColorSchemeOptions,
+	ThemeContextValue,
+} from '~/contexts/theme-context/types';
 import { getColors } from '~/styles/colors';
-
-interface ThemeContextValue {
-	colors: Colors;
-	colorScheme: ColorSchemeName;
-	isDark: boolean;
-	isLight: boolean;
-	setSelectedColorScheme: Dispatch<SetStateAction<ColorSchemeName>>;
-	setColorsToInject: Dispatch<SetStateAction<Colors>>;
-}
+import { getStorageItem, setStorageItem } from '~/utils/localStorage';
 
 const ThemeContext = createContext<ThemeContextValue>({} as ThemeContextValue);
 
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
 	const deviceColorScheme = useColorScheme();
-	const [selectedColorScheme, setSelectedColorScheme] = useState<ColorSchemeName | 'system'>(
+	const [selectedColorScheme, setSelectedColorScheme] = useState<SelectColorSchemeOptions>(
 		Appearance.getColorScheme(),
 	);
 	const [colorScheme, setColorScheme] = useState<ColorSchemeName>(Appearance.getColorScheme());
-	const [colorsToInject, setColorsToInject] = useState<Colors>({});
+	const [userColors, setUserColors] = useState<Colors>({});
 	const isDark = colorScheme === 'dark';
 	const isLight = colorScheme === 'light';
-	const colors = getColors(colorScheme, colorsToInject);
+	const colors = getColors(colorScheme, userColors);
+	const colorSchemeStorageKey = 'colorScheme';
+	const selectedColorSchemeStorageKey = 'selectedColorScheme';
+	const userColorsStorageKey = 'userColors';
+
+	const getStateFromStorage = () => {
+		getStorageItem(colorSchemeStorageKey).then((value) => {
+			if (value) {
+				setColorScheme(value as ColorSchemeName);
+			}
+		});
+
+		getStorageItem(selectedColorSchemeStorageKey).then((value) => {
+			if (value) {
+				setSelectedColorScheme(value as SelectColorSchemeOptions);
+			}
+		});
+
+		getStorageItem(userColorsStorageKey).then((value) => {
+			const parsedValue = JSON.parse(value);
+
+			if (parsedValue) {
+				setUserColors(parsedValue as Colors);
+			}
+		});
+	};
+
+	const handleSetSelectedColorScheme = (selectedColorScheme: SelectColorSchemeOptions) => {
+		setStorageItem(selectedColorSchemeStorageKey, selectedColorScheme);
+
+		if (selectedColorScheme === 'system') {
+			return handleSetColorScheme(deviceColorScheme);
+		}
+
+		handleSetColorScheme(selectedColorScheme);
+	};
+
+	const handleSetColorScheme = (colorScheme: ColorSchemeName) => {
+		setColorScheme(colorScheme);
+		setStorageItem(colorSchemeStorageKey, colorScheme);
+	};
+
+	const handleSetUserColors = (selectedColors: Colors) => {
+		setUserColors(selectedColors);
+		setStorageItem(userColorsStorageKey, JSON.stringify(selectedColors));
+	};
+
+	useEffect(() => {
+		getStateFromStorage();
+	}, []);
 
 	useEffect(() => {
 		if (selectedColorScheme === 'system') {
-			setColorScheme(deviceColorScheme);
+			handleSetColorScheme(deviceColorScheme);
 		}
 	}, [deviceColorScheme]);
-
-	useEffect(() => {
-		if (selectedColorScheme === 'system') {
-			return setColorScheme(deviceColorScheme);
-		}
-
-		setColorScheme(selectedColorScheme);
-	}, [selectedColorScheme]);
 
 	return (
 		<ThemeContext.Provider
 			value={{
 				colors,
 				colorScheme,
+				selectedColorScheme,
 				isDark,
 				isLight,
-				setSelectedColorScheme,
-				setColorsToInject,
+				handleSetSelectedColorScheme,
+				handleSetUserColors,
 			}}
 		>
 			{children}

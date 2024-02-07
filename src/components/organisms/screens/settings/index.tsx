@@ -8,7 +8,7 @@ import { useTheme } from '~/contexts/theme-context';
 
 export const SettingsScreen: React.FC = () => {
 	const [isColorPickerModalVisible, setIsColorPickerModalVisible] = useState<boolean>(false);
-	const { setSelectedColorScheme, colors } = useTheme();
+	const { handleSetSelectedColorScheme, colors, selectedColorScheme } = useTheme();
 
 	return (
 		<View style={{ ...styles.container }}>
@@ -32,11 +32,12 @@ export const SettingsScreen: React.FC = () => {
 							value: 'light',
 						},
 					]}
-					onChange={(value) => setSelectedColorScheme(value)}
+					onChange={(value) => handleSetSelectedColorScheme(value)}
 					placeholder={{
 						label: 'Sistema',
 						value: 'system',
 					}}
+					defaultValue={selectedColorScheme}
 				/>
 			</View>
 
