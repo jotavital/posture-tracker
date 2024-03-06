@@ -8,20 +8,18 @@ import { Exercise } from '~/entities/Exercise';
 export interface ExerciseContextValue {
 	deleteExercise: () => void;
 	fetchLatestExercises: () => void;
-	fetchExercisesByDate: (date: Date) => Promise<void>;
+	fetchExercisesByDate: (date: Date) => Promise<Exercise[]>;
 	handleCloseDeleteModal: () => void;
 	handleOpenDeleteModal: (exerciseId: number) => void;
 	isDeleteModalVisible: boolean;
 	latestExercises: Exercise[];
 	storeExercise: (data: Exercise) => void;
-	selectedDayExercises: Exercise[];
 }
 
 const ExerciseContext = createContext<ExerciseContextValue>({} as ExerciseContextValue);
 
 export const ExerciseProvider = ({ children }: { children: ReactNode }) => {
 	// TODO mover os state pra hooks
-	const [selectedDayExercises, setSelectedDayExercises] = useState<Exercise[]>([]);
 	const [latestExercises, setLatestExercises] = useState<Exercise[]>([]);
 	const [isDeleteModalVisible, setIsDeleteModalVisible] = useState<boolean>(false);
 	const [exerciseIdToDelete, setExerciseIdToDelete] = useState<number | undefined>(undefined);
@@ -61,7 +59,8 @@ export const ExerciseProvider = ({ children }: { children: ReactNode }) => {
 	const fetchExercisesByDate = async (date: Date) => {
 		const db = await dataSource();
 
-		db.getRepository(Exercise)
+		return db
+			.getRepository(Exercise)
 			.createQueryBuilder()
 			.addSelect(['*', 'date(created_at)'])
 			.addOrderBy('id', 'DESC')
@@ -69,8 +68,8 @@ export const ExerciseProvider = ({ children }: { children: ReactNode }) => {
 				createdAt: format(date, 'y-MM-dd'),
 			})
 			.execute()
-			.then((response) => {
-				setSelectedDayExercises(response);
+			.then((response: Exercise[]) => {
+				return response;
 			});
 	};
 
@@ -93,7 +92,6 @@ export const ExerciseProvider = ({ children }: { children: ReactNode }) => {
 				latestExercises,
 				storeExercise,
 				fetchExercisesByDate,
-				selectedDayExercises,
 			}}
 		>
 			{children}

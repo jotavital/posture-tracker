@@ -16,9 +16,10 @@ export const ExercisesScreen: React.FC = () => {
 	setCalendarLocales();
 
 	const { colors } = useTheme();
-	const { fetchExercisesByDate, selectedDayExercises } = useExercises();
+	const { fetchExercisesByDate } = useExercises();
 	const [selectedDate, setSelectedDate] = useState<string>(new Date().toDateString());
 	const [isLoading, setIsLoading] = useState<boolean>(false);
+	const [selectedDayExercises, setSelectedDayExercises] = useState<Exercise[]>([]);
 
 	const handleChangeDate = async (date: string) => {
 		setIsLoading(true);
@@ -26,7 +27,8 @@ export const ExercisesScreen: React.FC = () => {
 		const parsedDate = parse(date, 'y-MM-dd', new Date());
 		setSelectedDate(parsedDate.toDateString());
 
-		await fetchExercisesByDate(parsedDate);
+		const response = await fetchExercisesByDate(parsedDate);
+		setSelectedDayExercises(response);
 
 		setIsLoading(false);
 	};
@@ -57,6 +59,7 @@ export const ExercisesScreen: React.FC = () => {
 					theme={{
 						selectedDayBackgroundColor: colors.primary,
 					}}
+					displayLoadingIndicator={isLoading}
 				/>
 				<AgendaList
 					sections={[
@@ -79,7 +82,6 @@ export const ExercisesScreen: React.FC = () => {
 					}}
 					// eslint-disable-next-line react-native/no-inline-styles
 					contentContainerStyle={{ gap: 7 }}
-					avoidDateUpdates={true}
 				/>
 			</CalendarProvider>
 		</View>
