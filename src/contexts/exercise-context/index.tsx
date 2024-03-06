@@ -8,20 +8,20 @@ import { Exercise } from '~/entities/Exercise';
 export interface ExerciseContextValue {
 	deleteExercise: () => void;
 	fetchLatestExercises: () => void;
-	fetchTodaysExercises: () => void;
+	fetchExercisesByDate: (date: Date) => Promise<void>;
 	handleCloseDeleteModal: () => void;
 	handleOpenDeleteModal: (exerciseId: number) => void;
 	isDeleteModalVisible: boolean;
 	latestExercises: Exercise[];
 	storeExercise: (data: Exercise) => void;
-	todaysExercises: Exercise[];
+	selectedDayExercises: Exercise[];
 }
 
 const ExerciseContext = createContext<ExerciseContextValue>({} as ExerciseContextValue);
 
 export const ExerciseProvider = ({ children }: { children: ReactNode }) => {
 	// TODO mover os state pra hooks
-	const [todaysExercises, setTodaysExercises] = useState<Exercise[]>([]);
+	const [selectedDayExercises, setSelectedDayExercises] = useState<Exercise[]>([]);
 	const [latestExercises, setLatestExercises] = useState<Exercise[]>([]);
 	const [isDeleteModalVisible, setIsDeleteModalVisible] = useState<boolean>(false);
 	const [exerciseIdToDelete, setExerciseIdToDelete] = useState<number | undefined>(undefined);
@@ -58,7 +58,7 @@ export const ExerciseProvider = ({ children }: { children: ReactNode }) => {
 			.then((response) => setLatestExercises(response));
 	};
 
-	const fetchTodaysExercises = async () => {
+	const fetchExercisesByDate = async (date: Date) => {
 		const db = await dataSource();
 
 		db.getRepository(Exercise)
@@ -66,12 +66,11 @@ export const ExerciseProvider = ({ children }: { children: ReactNode }) => {
 			.addSelect(['*', 'date(created_at)'])
 			.addOrderBy('id', 'DESC')
 			.where("date(created_at, 'localtime') = :createdAt", {
-				createdAt: format(new Date(), 'y-MM-dd'),
+				createdAt: format(date, 'y-MM-dd'),
 			})
 			.execute()
 			.then((response) => {
-				console.log(response);
-				setTodaysExercises(response);
+				setSelectedDayExercises(response);
 			});
 	};
 
@@ -93,8 +92,8 @@ export const ExerciseProvider = ({ children }: { children: ReactNode }) => {
 				isDeleteModalVisible,
 				latestExercises,
 				storeExercise,
-				fetchTodaysExercises,
-				todaysExercises,
+				fetchExercisesByDate,
+				selectedDayExercises,
 			}}
 		>
 			{children}
