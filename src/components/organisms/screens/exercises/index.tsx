@@ -39,6 +39,8 @@ export const ExercisesScreen: React.FC = () => {
 	};
 
 	const handleFetchMarkedDates = async (month: number) => {
+		setIsLoading(true);
+
 		const datesThatHaveExercises = await fetchDatesThatHaveExercises(month.toString());
 
 		let newMarkedDates: MarkedDates = {};
@@ -54,6 +56,7 @@ export const ExercisesScreen: React.FC = () => {
 		});
 
 		setMarkedDates(newMarkedDates);
+		setIsLoading(false);
 	};
 
 	useEffect(() => {
@@ -104,16 +107,13 @@ export const ExercisesScreen: React.FC = () => {
 						return (
 							// eslint-disable-next-line react-native/no-inline-styles
 							<View style={{ paddingHorizontal: 7 }}>
-								{isLoading ? (
-									<ActivityIndicator />
-								) : (
-									<ExerciseInfoCard exercise={item} />
-								)}
+								<ExerciseInfoCard exercise={item} />
 							</View>
 						);
 					}}
 					// eslint-disable-next-line react-native/no-inline-styles
 					contentContainerStyle={{ gap: 7 }}
+					ListHeaderComponent={isLoading ? <ActivityIndicator /> : null}
 				/>
 			</CalendarProvider>
 		</View>
