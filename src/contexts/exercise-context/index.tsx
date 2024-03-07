@@ -14,6 +14,7 @@ export interface ExerciseContextValue {
 	isDeleteModalVisible: boolean;
 	latestExercises: Exercise[];
 	storeExercise: (data: Exercise) => void;
+	fetchDatesThatHaveExercises: (month: string) => Promise<{ date: string }[]>;
 }
 
 const ExerciseContext = createContext<ExerciseContextValue>({} as ExerciseContextValue);
@@ -64,11 +65,28 @@ export const ExerciseProvider = ({ children }: { children: ReactNode }) => {
 			.createQueryBuilder()
 			.addSelect(['*', 'date(created_at)'])
 			.addOrderBy('id', 'DESC')
-			.where("date(created_at, 'localtime') = :createdAt", {
+			.where('date(created_at) = :createdAt', {
 				createdAt: format(date, 'y-MM-dd'),
 			})
 			.execute()
 			.then((response: Exercise[]) => {
+				return response;
+			});
+	};
+
+	const fetchDatesThatHaveExercises = async (month: string) => {
+		const db = await dataSource();
+		const formattedMonth = month.padStart(2, '0');
+
+		return db
+			.getRepository(Exercise)
+			.createQueryBuilder()
+			.select(['date(created_at) as date'])
+			.where("strftime('%m', created_at) = :month", {
+				month: formattedMonth,
+			})
+			.execute()
+			.then((response: { date: string }[]) => {
 				return response;
 			});
 	};
@@ -92,6 +110,7 @@ export const ExerciseProvider = ({ children }: { children: ReactNode }) => {
 				latestExercises,
 				storeExercise,
 				fetchExercisesByDate,
+				fetchDatesThatHaveExercises,
 			}}
 		>
 			{children}

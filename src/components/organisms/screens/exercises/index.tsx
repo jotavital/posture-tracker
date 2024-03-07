@@ -1,10 +1,10 @@
 import { SimpleLineIcons } from '@expo/vector-icons';
 import { parse } from 'date-fns';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ActivityIndicator, View } from 'react-native';
 import { AgendaList, CalendarProvider, ExpandableCalendar } from 'react-native-calendars';
 import { Positions } from 'react-native-calendars/src/expandableCalendar';
-import { Direction } from 'react-native-calendars/src/types';
+import { DateData, Direction, MarkedDates } from 'react-native-calendars/src/types';
 import { ExerciseInfoCard } from '~/components/molecules/exercise-info-card';
 import { styles } from '~/components/organisms/screens/exercises/styles';
 import { useExercises } from '~/contexts/exercise-context';
@@ -16,10 +16,11 @@ export const ExercisesScreen: React.FC = () => {
 	setCalendarLocales();
 
 	const { colors } = useTheme();
-	const { fetchExercisesByDate } = useExercises();
+	const { fetchExercisesByDate, fetchDatesThatHaveExercises } = useExercises();
 	const [selectedDate, setSelectedDate] = useState<string>(new Date().toDateString());
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [selectedDayExercises, setSelectedDayExercises] = useState<Exercise[]>([]);
+	const [markedDates, setMarkedDates] = useState<MarkedDates>({});
 
 	const handleChangeDate = async (date: string) => {
 		setIsLoading(true);
@@ -33,14 +34,45 @@ export const ExercisesScreen: React.FC = () => {
 		setIsLoading(false);
 	};
 
+	const handleChangeMonth = ({ month }: DateData) => {
+		handleFetchMarkedDates(month);
+	};
+
+	const handleFetchMarkedDates = async (month: number) => {
+		const datesThatHaveExercises = await fetchDatesThatHaveExercises(month.toString());
+
+		let newMarkedDates: MarkedDates = {};
+
+		datesThatHaveExercises.map(({ date }) => {
+			newMarkedDates = {
+				...newMarkedDates,
+				[date]: {
+					marked: true,
+					selectedColor: colors.primary,
+				},
+			};
+		});
+
+		setMarkedDates(newMarkedDates);
+	};
+
+	useEffect(() => {
+		const currentDate = selectedDate ? new Date(selectedDate) : new Date();
+		const month = currentDate.getMonth() + 1;
+
+		handleFetchMarkedDates(month);
+	}, []);
+
 	return (
 		<View style={{ ...styles.container }}>
-			<CalendarProvider date={new Date().toDateString()} onDateChanged={handleChangeDate}>
+			<CalendarProvider
+				date={new Date().toDateString()}
+				onDateChanged={handleChangeDate}
+				onMonthChange={handleChangeMonth}
+			>
 				<ExpandableCalendar
 					initialPosition={Positions.OPEN}
-					markedDates={{
-						'2024-03-05': { marked: true, selectedColor: colors.primary },
-					}}
+					markedDates={markedDates}
 					renderArrow={(direction: Direction) => {
 						if (direction === 'left') {
 							return (
