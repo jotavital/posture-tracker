@@ -1,24 +1,20 @@
 import { useEffect } from 'react';
 import { ExpandableCalendar } from 'react-native-calendars';
 import { Positions } from 'react-native-calendars/src/expandableCalendar';
-import { Direction, MarkedDates } from 'react-native-calendars/src/types';
+import { Direction } from 'react-native-calendars/src/types';
 import { ExercisesCalendarArrows } from '~/components/organisms/exercises-calendar/arrows';
 import { useTheme } from '~/contexts/theme-context';
+import { useCalendarData } from '~/hooks/useCalendarData';
 
 interface Props {
 	selectedDate: string;
-	handleFetchMarkedDates: (month: number) => void;
-	markedDates: MarkedDates;
 	isLoading: boolean;
 }
 
-export const ExercisesCalendar: React.FC<Props> = ({
-	selectedDate,
-	handleFetchMarkedDates,
-	markedDates,
-	isLoading,
-}: Props) => {
+export const ExercisesCalendar: React.FC<Props> = ({ selectedDate, isLoading }: Props) => {
 	const { colors } = useTheme();
+
+	const { handleFetchMarkedDates, markedDates } = useCalendarData();
 
 	useEffect(() => {
 		const currentDate = selectedDate ? new Date(selectedDate) : new Date();
