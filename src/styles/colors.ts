@@ -16,6 +16,7 @@ export const lightColors: Colors = {
 	transparent: '#ffffff66',
 	white: '#ffffff',
 	yellow: '#FFD166',
+	disabledText: '#E0E0E0',
 };
 
 export const darkColors: Colors = {
@@ -24,6 +25,7 @@ export const darkColors: Colors = {
 	background: '#121212',
 	contrastBackground: '#ffffff1f',
 	text: '#ffffffde',
+	disabledText: '#525252',
 };
 
 export const getColors = (colorScheme: ColorSchemeName, colorsToInject: Colors = {}) => {

@@ -50,7 +50,6 @@ export const ExercisesScreen: React.FC = () => {
 				...newMarkedDates,
 				[date]: {
 					marked: true,
-					selectedColor: colors.primary,
 				},
 			};
 		});
@@ -67,7 +66,7 @@ export const ExercisesScreen: React.FC = () => {
 	}, []);
 
 	return (
-		<View style={{ ...styles.container }}>
+		<View style={{ ...styles.container }} key={`${JSON.stringify(colors)}`}>
 			<CalendarProvider
 				date={new Date().toDateString()}
 				onDateChanged={handleChangeDate}
@@ -92,7 +91,11 @@ export const ExercisesScreen: React.FC = () => {
 						);
 					}}
 					theme={{
+						calendarBackground: colors.background,
 						selectedDayBackgroundColor: colors.primary,
+						monthTextColor: colors.text,
+						dayTextColor: colors.text,
+						textDisabledColor: colors.disabledText,
 					}}
 					displayLoadingIndicator={isLoading}
 				/>
@@ -114,6 +117,9 @@ export const ExercisesScreen: React.FC = () => {
 					// eslint-disable-next-line react-native/no-inline-styles
 					contentContainerStyle={{ gap: 7 }}
 					ListHeaderComponent={isLoading ? <ActivityIndicator /> : null}
+					theme={{
+						calendarBackground: colors.background,
+					}}
 				/>
 			</CalendarProvider>
 		</View>

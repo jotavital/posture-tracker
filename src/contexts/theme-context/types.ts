@@ -27,4 +27,5 @@ export interface Colors {
 	transparent?: string;
 	white?: string;
 	yellow?: string;
+	disabledText?: string;
 }
