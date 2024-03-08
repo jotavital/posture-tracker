@@ -4,6 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { CustomStatusBar } from '~/components/atoms/status-bar';
 import { MainNavigator } from '~/components/organisms/navigators/main-navigator';
 import { ExerciseProvider } from '~/contexts/exercise-context';
+import { ExercisesCalendarProvider } from '~/contexts/exercises-calendar-context';
 import { ThemeProvider } from '~/contexts/theme-context';
 import { TimerProvider } from '~/contexts/timer-context';
 import { styles } from './styles';
@@ -16,10 +17,12 @@ export default function App() {
 				<GestureHandlerRootView style={{ flex: 1 }}>
 					<ThemeProvider>
 						<ExerciseProvider>
-							<TimerProvider>
-								<CustomStatusBar />
-								<MainNavigator />
-							</TimerProvider>
+							<ExercisesCalendarProvider>
+								<TimerProvider>
+									<CustomStatusBar />
+									<MainNavigator />
+								</TimerProvider>
+							</ExercisesCalendarProvider>
 						</ExerciseProvider>
 					</ThemeProvider>
 				</GestureHandlerRootView>
