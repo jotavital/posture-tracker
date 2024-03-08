@@ -4,19 +4,11 @@ import { AgendaList } from 'react-native-calendars';
 import { ExerciseInfoCard } from '~/components/molecules/exercise-info-card';
 import { useTheme } from '~/contexts/theme-context';
 import { Exercise } from '~/entities/Exercise';
+import { useCalendarData } from '~/hooks/useCalendarData';
 
-interface Props {
-	selectedDate: string;
-	selectedDayExercises: Exercise[];
-	isLoading: boolean;
-}
-
-export const ExercisesAgendaList: React.FC<Props> = ({
-	selectedDate,
-	selectedDayExercises,
-	isLoading,
-}: Props) => {
+export const ExercisesAgendaList: React.FC = () => {
 	const { colors } = useTheme();
+	const { selectedDate, selectedDayExercises, isLoading } = useCalendarData();
 
 	return (
 		<AgendaList

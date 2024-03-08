@@ -6,15 +6,10 @@ import { ExercisesCalendarArrows } from '~/components/organisms/exercises-calend
 import { useTheme } from '~/contexts/theme-context';
 import { useCalendarData } from '~/hooks/useCalendarData';
 
-interface Props {
-	selectedDate: string;
-	isLoading: boolean;
-}
-
-export const ExercisesCalendar: React.FC<Props> = ({ selectedDate, isLoading }: Props) => {
+export const ExercisesCalendar: React.FC = () => {
 	const { colors } = useTheme();
 
-	const { handleFetchMarkedDates, markedDates } = useCalendarData();
+	const { handleFetchMarkedDates, markedDates, selectedDate, isLoading } = useCalendarData();
 
 	useEffect(() => {
 		const currentDate = selectedDate ? new Date(selectedDate) : new Date();
