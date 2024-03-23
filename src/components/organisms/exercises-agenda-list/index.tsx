@@ -1,6 +1,7 @@
 import React from 'react';
-import { ActivityIndicator, View } from 'react-native';
+import { View } from 'react-native';
 import { AgendaList } from 'react-native-calendars';
+import { RefreshControl } from 'react-native-gesture-handler';
 import { ExerciseInfoCard } from '~/components/molecules/exercise-info-card';
 import { useExercisesCalendar } from '~/contexts/exercises-calendar-context';
 import { useTheme } from '~/contexts/theme-context';
@@ -8,7 +9,8 @@ import { Exercise } from '~/entities/Exercise';
 
 export const ExercisesAgendaList: React.FC = () => {
 	const { colors } = useTheme();
-	const { selectedDate, selectedDayExercises, isLoading } = useExercisesCalendar();
+	const { selectedDate, selectedDayExercises, isLoading, handleFetchExercisesByDate } =
+		useExercisesCalendar();
 
 	return (
 		<AgendaList
@@ -28,10 +30,15 @@ export const ExercisesAgendaList: React.FC = () => {
 			}}
 			// eslint-disable-next-line react-native/no-inline-styles
 			contentContainerStyle={{ gap: 7 }}
-			ListHeaderComponent={isLoading ? <ActivityIndicator /> : null}
 			theme={{
 				calendarBackground: colors.background,
 			}}
+			refreshControl={
+				<RefreshControl
+					refreshing={isLoading}
+					onRefresh={() => handleFetchExercisesByDate(selectedDate)}
+				/>
+			}
 		/>
 	);
 };

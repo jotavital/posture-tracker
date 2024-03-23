@@ -10,7 +10,7 @@ export interface ExercisesCalendarContextValue {
 	handleFetchMarkedDates: (month: number) => Promise<void>;
 	selectedDate: string;
 	selectedDayExercises: Exercise[];
-	handleChangeDate: (date: string) => Promise<void>;
+	handleFetchExercisesByDate: (date: string) => Promise<void>;
 	handleChangeMonth: ({ month }: DateData) => void;
 }
 
@@ -25,12 +25,11 @@ export const ExercisesCalendarProvider = ({ children }: { children: ReactNode })
 	const [selectedDate, setSelectedDate] = useState<string>(new Date().toDateString());
 	const [selectedDayExercises, setSelectedDayExercises] = useState<Exercise[]>([]);
 
-	const handleChangeDate = async (date: string) => {
+	const handleFetchExercisesByDate = async (date: string) => {
 		setIsLoading(true);
 
 		const parsedDate = parse(date, 'y-MM-dd', new Date());
 		setSelectedDate(parsedDate.toDateString());
-		console.log('rodou', parsedDate.toDateString());
 
 		const response = await fetchExercisesByDate(parsedDate);
 		setSelectedDayExercises(response);
@@ -70,7 +69,7 @@ export const ExercisesCalendarProvider = ({ children }: { children: ReactNode })
 				handleFetchMarkedDates,
 				selectedDate,
 				selectedDayExercises,
-				handleChangeDate,
+				handleFetchExercisesByDate,
 				handleChangeMonth,
 			}}
 		>

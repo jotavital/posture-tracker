@@ -11,13 +11,13 @@ export const ExercisesScreen: React.FC = () => {
 	setCalendarLocales();
 
 	const { colors } = useTheme();
-	const { handleChangeMonth, handleChangeDate } = useExercisesCalendar();
+	const { handleChangeMonth, handleFetchExercisesByDate } = useExercisesCalendar();
 
 	return (
 		<View style={{ ...styles.container }} key={`${JSON.stringify(colors)}`}>
 			<CalendarProvider
 				date={new Date().toDateString()}
-				onDateChanged={handleChangeDate}
+				onDateChanged={handleFetchExercisesByDate}
 				onMonthChange={handleChangeMonth}
 			>
 				<ExercisesCalendar />
