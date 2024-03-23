@@ -1,5 +1,6 @@
 import { AntDesign, Feather } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { SafeAreaView } from 'react-native';
 import { ExercisesScreen } from '~/components/organisms/screens/exercises';
 import { HomeScreen } from '~/components/organisms/screens/home';
 import { SettingsScreen } from '~/components/organisms/screens/settings';
@@ -10,48 +11,51 @@ export const MainNavigator: React.FC = () => {
 	const { colors, isDark } = useTheme();
 
 	return (
-		<Tab.Navigator
-			screenOptions={{
-				tabBarActiveTintColor: colors.primary,
-				tabBarStyle: { backgroundColor: isDark ? colors.black : colors.white },
-				tabBarLabelStyle: { fontSize: 12 },
-			}}
-			sceneContainerStyle={{ backgroundColor: colors.background }}
-			initialRouteName='exercises'
-		>
-			<Tab.Screen
-				name='timer'
-				component={HomeScreen}
-				options={{
-					headerShown: false,
-					tabBarIcon: ({ color }) => {
-						return <AntDesign name='clockcircleo' size={20} color={color} />;
-					},
-					tabBarLabel: 'Timer',
+		// eslint-disable-next-line react-native/no-inline-styles
+		<SafeAreaView style={{ flex: 1 }}>
+			<Tab.Navigator
+				screenOptions={{
+					tabBarActiveTintColor: colors.primary,
+					tabBarStyle: { backgroundColor: isDark ? colors.black : colors.white },
+					tabBarLabelStyle: { fontSize: 12 },
 				}}
-			/>
-			<Tab.Screen
-				name='exercises'
-				component={ExercisesScreen}
-				options={{
-					headerShown: false,
-					tabBarIcon: ({ color }) => {
-						return <Feather name='list' size={24} color={color} />;
-					},
-					tabBarLabel: 'Histórico',
-				}}
-			/>
-			<Tab.Screen
-				name='settings'
-				component={SettingsScreen}
-				options={{
-					headerShown: false,
-					tabBarIcon: ({ color }) => {
-						return <AntDesign name='setting' size={24} color={color} />;
-					},
-					tabBarLabel: 'Configurações',
-				}}
-			/>
-		</Tab.Navigator>
+				sceneContainerStyle={{ backgroundColor: colors.background }}
+				initialRouteName='timer'
+			>
+				<Tab.Screen
+					name='timer'
+					component={HomeScreen}
+					options={{
+						headerShown: false,
+						tabBarIcon: ({ color }) => {
+							return <AntDesign name='clockcircleo' size={20} color={color} />;
+						},
+						tabBarLabel: 'Timer',
+					}}
+				/>
+				<Tab.Screen
+					name='exercises'
+					component={ExercisesScreen}
+					options={{
+						headerShown: false,
+						tabBarIcon: ({ color }) => {
+							return <Feather name='list' size={24} color={color} />;
+						},
+						tabBarLabel: 'Histórico',
+					}}
+				/>
+				<Tab.Screen
+					name='settings'
+					component={SettingsScreen}
+					options={{
+						headerShown: false,
+						tabBarIcon: ({ color }) => {
+							return <AntDesign name='setting' size={24} color={color} />;
+						},
+						tabBarLabel: 'Configurações',
+					}}
+				/>
+			</Tab.Navigator>
+		</SafeAreaView>
 	);
 };
