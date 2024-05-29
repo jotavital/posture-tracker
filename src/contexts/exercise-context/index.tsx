@@ -1,5 +1,5 @@
 import { format } from 'date-fns';
-import { ReactNode, createContext, useContext, useState } from 'react';
+import { createContext, ReactNode, useContext, useState } from 'react';
 import { DeleteExerciseModalContent } from '~/components/molecules/modal-content/delete-exercise';
 import { Modal } from '~/components/organisms/modal';
 import { dataSource } from '~/database';

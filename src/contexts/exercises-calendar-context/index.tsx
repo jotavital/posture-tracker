@@ -1,5 +1,4 @@
-import { parse } from 'date-fns';
-import { ReactNode, createContext, useContext, useState } from 'react';
+import { createContext, ReactNode, useContext, useState } from 'react';
 import { DateData, MarkedDates } from 'react-native-calendars/src/types';
 import { useExercises } from '~/contexts/exercise-context';
 import { Exercise } from '~/entities/Exercise';
@@ -8,9 +7,9 @@ export interface ExercisesCalendarContextValue {
 	markedDates: MarkedDates;
 	isLoading: boolean;
 	handleFetchMarkedDates: (month: number) => Promise<void>;
-	selectedDate: string;
+	selectedDate: Date;
 	selectedDayExercises: Exercise[];
-	handleFetchExercisesByDate: (date: string) => Promise<void>;
+	handleFetchExercisesByDate: (date: Date) => Promise<void>;
 	handleChangeMonth: ({ month }: DateData) => void;
 }
 
@@ -22,16 +21,15 @@ export const ExercisesCalendarProvider = ({ children }: { children: ReactNode })
 	const [markedDates, setMarkedDates] = useState<MarkedDates>({});
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const { fetchDatesThatHaveExercises, fetchExercisesByDate } = useExercises();
-	const [selectedDate, setSelectedDate] = useState<string>(new Date().toDateString());
+	const [selectedDate, setSelectedDate] = useState<Date>(new Date());
 	const [selectedDayExercises, setSelectedDayExercises] = useState<Exercise[]>([]);
 
-	const handleFetchExercisesByDate = async (date: string) => {
+	const handleFetchExercisesByDate = async (date: Date) => {
 		setIsLoading(true);
 
-		const parsedDate = parse(date, 'y-MM-dd', new Date());
-		setSelectedDate(parsedDate.toDateString());
+		setSelectedDate(date);
 
-		const response = await fetchExercisesByDate(parsedDate);
+		const response = await fetchExercisesByDate(date);
 		setSelectedDayExercises(response);
 
 		setIsLoading(false);

@@ -16,7 +16,7 @@ export const ExercisesAgendaList: React.FC = () => {
 		<AgendaList
 			sections={[
 				{
-					title: new Date(selectedDate).toDateString(),
+					title: selectedDate,
 					data: selectedDayExercises,
 				},
 			]}
@@ -36,7 +36,9 @@ export const ExercisesAgendaList: React.FC = () => {
 			refreshControl={
 				<RefreshControl
 					refreshing={isLoading}
-					onRefresh={() => handleFetchExercisesByDate(selectedDate)}
+					onRefresh={() => {
+						handleFetchExercisesByDate(selectedDate);
+					}}
 				/>
 			}
 		/>
