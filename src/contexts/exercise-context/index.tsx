@@ -1,5 +1,5 @@
-import { format } from 'date-fns';
-import { createContext, ReactNode, useContext, useState } from 'react';
+import { format, formatISO } from 'date-fns';
+import { ReactNode, createContext, useContext, useState } from 'react';
 import { DeleteExerciseModalContent } from '~/components/molecules/modal-content/delete-exercise';
 import { Modal } from '~/components/organisms/modal';
 import { dataSource } from '~/database';
@@ -94,6 +94,7 @@ export const ExerciseProvider = ({ children }: { children: ReactNode }) => {
 	const storeExercise = async (data: Exercise) => {
 		const db = await dataSource();
 
+		data.created_at = formatISO(new Date());
 		const exercise = await db.getRepository(Exercise).save(data);
 
 		setLatestExercises((prevState) => [exercise, ...prevState]);

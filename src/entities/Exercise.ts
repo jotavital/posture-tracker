@@ -1,6 +1,5 @@
 import {
 	Column,
-	CreateDateColumn,
 	DeleteDateColumn,
 	Entity,
 	PrimaryGeneratedColumn,
@@ -18,8 +17,8 @@ export class Exercise {
 	@Column('varchar')
 	end_time: string;
 
-	@CreateDateColumn({ type: 'datetime' })
-	created_at?: Date;
+	@Column({ type: 'datetime' })
+	created_at?: string;
 
 	@UpdateDateColumn({ type: 'datetime' })
 	updated_at?: Date;

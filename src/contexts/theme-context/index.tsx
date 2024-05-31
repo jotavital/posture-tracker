@@ -1,4 +1,4 @@
-import { ReactNode, createContext, useContext, useEffect, useState } from 'react';
+import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
 import { Appearance, ColorSchemeName, useColorScheme } from 'react-native';
 import {
 	Colors,
@@ -47,6 +47,7 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
 	};
 
 	const handleSetSelectedColorScheme = (selectedColorScheme: SelectColorSchemeOptions) => {
+		console.log('trocou de tema?', selectedColorScheme);
 		setStorageItem(selectedColorSchemeStorageKey, selectedColorScheme);
 
 		if (selectedColorScheme === 'system') {
