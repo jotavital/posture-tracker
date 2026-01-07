@@ -16,7 +16,7 @@ export const DeleteExerciseModalContent: React.FC<Props> = ({
 
 	return (
 		<View style={styles.container}>
-			<Button title='Voltar' style={styles.button} onPress={handleCloseDeleteModal} />
+			<Button title='Cancelar' style={styles.button} onPress={handleCloseDeleteModal} />
 			<Button
 				title='Excluir'
 				style={styles.button}

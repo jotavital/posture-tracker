@@ -38,6 +38,7 @@ export const ExercisesCalendar: React.FC = () => {
 				monthTextColor: colors.text,
 				dayTextColor: colors.text,
 				textDisabledColor: colors.disabledText,
+				selectedDotColor: colors.white,
 			}}
 			displayLoadingIndicator={isLoading}
 			onDayPress={(date: DateData) => {

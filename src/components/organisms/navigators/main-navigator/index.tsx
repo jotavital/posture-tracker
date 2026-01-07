@@ -1,6 +1,6 @@
 import { AntDesign, Feather } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { SafeAreaView } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { ExercisesScreen } from '~/components/organisms/screens/exercises';
 import { HomeScreen } from '~/components/organisms/screens/home';
 import { SettingsScreen } from '~/components/organisms/screens/settings';

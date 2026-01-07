@@ -15,11 +15,13 @@ export const LatestExercises: React.FC = () => {
 
 	return latestExercises.length ? (
 		<View style={styles.container}>
-			<Text style={{ ...styles.title, color: colors.text }}>Recente</Text>
+			<Text style={{ ...styles.title, color: colors.text }}>Últimos Exercícios</Text>
 			<FlatList
 				data={latestExercises}
 				renderItem={({ item }) => <ExerciseInfoCard exercise={item} />}
 				keyExtractor={(item) => String(item.id)}
+				// eslint-disable-next-line react-native/no-inline-styles
+				ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
 			/>
 		</View>
 	) : null;

@@ -5,14 +5,13 @@ export const styles = StyleSheet.create({
 		display: 'flex',
 		flexDirection: 'row',
 		justifyContent: 'space-between',
-		marginBottom: 10,
 		padding: 15,
 	},
 	icons: {
 		textAlignVertical: 'center',
 	},
 	swipeableContainer: {
-		borderRadius: 5,
+		borderRadius: 7,
 	},
 	text: {
 		fontSize: 15,

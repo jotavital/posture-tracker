@@ -22,6 +22,7 @@ export const ExerciseInfoCard: React.FC<Props> = ({ exercise }: Props) => {
 			renderRightActions={handleRenderRightActions}
 			containerStyle={styles.swipeableContainer}
 			overshootRight={false}
+			friction={2}
 		>
 			<View style={{ ...styles.container, backgroundColor: colors.contrastBackground }}>
 				<View style={styles.timeDisplay}>
