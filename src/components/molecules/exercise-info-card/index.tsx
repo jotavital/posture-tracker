@@ -1,4 +1,4 @@
-import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 import { Text, View } from 'react-native';
 import { Swipeable } from 'react-native-gesture-handler';
 import { ExerciseInfoCardRightActions } from '~/components/molecules/exercise-info-card/right-actions';
@@ -26,8 +26,8 @@ export const ExerciseInfoCard: React.FC<Props> = ({ exercise }: Props) => {
 		>
 			<View style={{ ...styles.container, backgroundColor: colors.contrastBackground }}>
 				<View style={styles.timeDisplay}>
-					<MaterialCommunityIcons
-						name='timer-sand-complete'
+					<Ionicons
+						name='hourglass-outline'
 						size={24}
 						color={colors.text}
 						style={styles.icons}
@@ -37,8 +37,8 @@ export const ExerciseInfoCard: React.FC<Props> = ({ exercise }: Props) => {
 					</Text>
 				</View>
 				<View style={styles.timeDisplay}>
-					<AntDesign
-						name='clock-circle'
+					<Ionicons
+						name='time-outline'
 						size={20}
 						color={colors.text}
 						style={styles.icons}

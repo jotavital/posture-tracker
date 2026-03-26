@@ -1,4 +1,4 @@
-import { FontAwesome } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 import { Animated } from 'react-native';
 import { Button } from '~/components/atoms/button';
 import { useExercises } from '~/contexts/exercise-context';
@@ -23,7 +23,7 @@ export const ExerciseInfoCardRightActions: React.FC<Props> = ({ dragX, exerciseI
 		<Animated.View style={{ width: 50, transform: [{ translateX: translateX }] }}>
 			<Button
 				onPress={() => handleOpenDeleteModal(exerciseId)}
-				leftIcon={<FontAwesome name='trash-o' size={24} color={colors.contrastText} />}
+				leftIcon={<Ionicons name='trash-outline' size={24} color={colors.contrastText} />}
 				bg={colors.red}
 				shape='square'
 				height='100%'

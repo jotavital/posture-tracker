@@ -1,4 +1,4 @@
-import { AntDesign, Feather } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ExercisesScreen } from '~/components/organisms/screens/exercises';
@@ -11,12 +11,27 @@ export const MainNavigator: React.FC = () => {
 	const { colors, isDark } = useTheme();
 
 	return (
-		<SafeAreaView style={{ flex: 1, backgroundColor: colors.background }} edges={['top', 'left', 'right']}>
+		<SafeAreaView
+			style={{ flex: 1, backgroundColor: colors.background }}
+			edges={['top', 'left', 'right']}
+		>
 			<Tab.Navigator
 				screenOptions={{
 					tabBarActiveTintColor: colors.primary,
-					tabBarStyle: { backgroundColor: isDark ? colors.black : colors.white },
-					tabBarLabelStyle: { fontSize: 12 },
+					tabBarInactiveTintColor: isDark ? '#8E8E93' : '#A0A0A5',
+					tabBarStyle: {
+						backgroundColor: isDark ? colors.black : colors.white,
+						borderTopWidth: 0,
+						elevation: 8,
+						shadowColor: '#000',
+						shadowOffset: { width: 0, height: -2 },
+						shadowOpacity: isDark ? 0.2 : 0.05,
+						shadowRadius: 6,
+					},
+					tabBarLabelStyle: {
+						fontSize: 12,
+						fontWeight: '600',
+					},
 				}}
 				sceneContainerStyle={{ backgroundColor: colors.background }}
 				initialRouteName='timer'
@@ -26,8 +41,14 @@ export const MainNavigator: React.FC = () => {
 					component={HomeScreen}
 					options={{
 						headerShown: false,
-						tabBarIcon: ({ color }) => {
-							return <AntDesign name='clock-circle' size={20} color={color} />;
+						tabBarIcon: ({ color, focused }) => {
+							return (
+								<Ionicons
+									name={focused ? 'timer' : 'timer-outline'}
+									size={24}
+									color={color}
+								/>
+							);
 						},
 						tabBarLabel: 'Timer',
 					}}
@@ -37,8 +58,14 @@ export const MainNavigator: React.FC = () => {
 					component={ExercisesScreen}
 					options={{
 						headerShown: false,
-						tabBarIcon: ({ color }) => {
-							return <Feather name='list' size={24} color={color} />;
+						tabBarIcon: ({ color, focused }) => {
+							return (
+								<Ionicons
+									name={focused ? 'list' : 'list-outline'}
+									size={24}
+									color={color}
+								/>
+							);
 						},
 						tabBarLabel: 'Histórico',
 					}}
@@ -48,8 +75,14 @@ export const MainNavigator: React.FC = () => {
 					component={SettingsScreen}
 					options={{
 						headerShown: false,
-						tabBarIcon: ({ color }) => {
-							return <AntDesign name='setting' size={24} color={color} />;
+						tabBarIcon: ({ color, focused }) => {
+							return (
+								<Ionicons
+									name={focused ? 'settings' : 'settings-outline'}
+									size={24}
+									color={color}
+								/>
+							);
 						},
 						tabBarLabel: 'Configurações',
 					}}
