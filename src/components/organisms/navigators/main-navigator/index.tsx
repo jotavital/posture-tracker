@@ -11,8 +11,7 @@ export const MainNavigator: React.FC = () => {
 	const { colors, isDark } = useTheme();
 
 	return (
-		// eslint-disable-next-line react-native/no-inline-styles
-		<SafeAreaView style={{ flex: 1 }}>
+		<SafeAreaView style={{ flex: 1, backgroundColor: colors.background }} edges={['top', 'left', 'right']}>
 			<Tab.Navigator
 				screenOptions={{
 					tabBarActiveTintColor: colors.primary,
