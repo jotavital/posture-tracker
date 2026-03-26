@@ -53,7 +53,7 @@ export const HomeScreen: React.FC = () => {
 			<Modal
 				isVisible={isTimePickerModalVisible}
 				onBackdropPress={handleCloseTimePickerModal}
-				title='Minutos : Segundos'
+				title='Ajustar Tempo'
 			>
 				<TimePickerModalContent handleCloseTimePickerModal={handleCloseTimePickerModal} />
 			</Modal>

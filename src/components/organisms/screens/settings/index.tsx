@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { Pressable, Text, View } from 'react-native';
+import { Pressable, View } from 'react-native';
+import { Text } from '~/components/atoms/text';
 import { Picker } from '~/components/atoms/picker';
 import { ColorPickerModalContent } from '~/components/molecules/modal-content/color-picker';
 import { Modal } from '~/components/organisms/modal';

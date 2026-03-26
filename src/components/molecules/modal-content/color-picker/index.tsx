@@ -31,7 +31,7 @@ export const ColorPickerModalContent: React.FC<Props> = ({
 			<AppColorPicker onComplete={onCompletePickColor} />
 			<Button
 				leftIcon={
-					<Ionicons name='checkmark-circle-outline' size={20} color={colors.text} />
+					<Ionicons name='checkmark-circle' size={20} color={colors.text} />
 				}
 				title='Pronto'
 				onPress={handleSetPrimaryColor}

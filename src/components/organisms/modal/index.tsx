@@ -21,7 +21,7 @@ export const Modal: React.FC<Props> = ({
 	const { colors } = useTheme();
 
 	return (
-		<ReactNativeModal isVisible={isVisible} onBackdropPress={onBackdropPress}>
+		<ReactNativeModal isVisible={isVisible} onBackdropPress={onBackdropPress} avoidKeyboard>
 			<View style={{ ...styles.container, backgroundColor: colors.background }}>
 				{title && <ModalTitle title={title} />}
 				{children}

@@ -1,4 +1,5 @@
-import { Pressable, Text } from 'react-native';
+import { Pressable } from 'react-native';
+import { Text } from '~/components/atoms/text';
 import { styles } from '~/components/atoms/button/styles';
 import { ButtonProps } from '~/components/atoms/button/types';
 import { useTheme } from '~/contexts/theme-context';

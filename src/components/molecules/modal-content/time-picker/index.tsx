@@ -31,9 +31,7 @@ export const TimePickerModalContent: React.FC<Props> = ({ handleCloseTimePickerM
 			<Button
 				onPress={handleCloseTimePickerModal}
 				title='Pronto'
-				leftIcon={
-					<Ionicons name='checkmark-circle-outline' size={20} color={colors.text} />
-				}
+				leftIcon={<Ionicons name='checkmark-circle' size={20} color={colors.text} />}
 			/>
 		</>
 	);

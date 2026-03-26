@@ -1,5 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
+import { Text } from '~/components/atoms/text';
 import { Swipeable } from 'react-native-gesture-handler';
 import { ExerciseInfoCardRightActions } from '~/components/molecules/exercise-info-card/right-actions';
 import { styles } from '~/components/molecules/exercise-info-card/styles';

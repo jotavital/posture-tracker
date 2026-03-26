@@ -1,6 +1,7 @@
 import { Picker as NativePicker } from '@react-native-picker/picker';
 import { useState } from 'react';
-import { Platform, Pressable, Text, View } from 'react-native';
+import { Platform, Pressable, View } from 'react-native';
+import { Text } from '~/components/atoms/text';
 import { styles } from '~/components/atoms/picker/styles';
 import { Modal } from '~/components/organisms/modal';
 import { useTheme } from '~/contexts/theme-context';

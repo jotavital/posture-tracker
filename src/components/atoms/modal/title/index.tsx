@@ -1,4 +1,4 @@
-import { Text } from 'react-native';
+import { Text } from '~/components/atoms/text';
 import { styles } from '~/components/atoms/modal/title/style';
 import { useTheme } from '~/contexts/theme-context';
 

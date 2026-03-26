@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
-import { FlatList, Text, View } from 'react-native';
+import { FlatList, View } from 'react-native';
+import { Text } from '~/components/atoms/text';
 import { ExerciseInfoCard } from '~/components/molecules/exercise-info-card';
 import { styles } from '~/components/organisms/latest-exercises/styles';
 import { useExercises } from '~/contexts/exercise-context';
