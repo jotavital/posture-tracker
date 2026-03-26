@@ -48,6 +48,7 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
 
 	const handleSetSelectedColorScheme = (selectedColorScheme: SelectColorSchemeOptions) => {
 		console.log('trocou de tema?', selectedColorScheme);
+		setSelectedColorScheme(selectedColorScheme);
 		setStorageItem(selectedColorSchemeStorageKey, selectedColorScheme);
 
 		if (selectedColorScheme === 'system') {

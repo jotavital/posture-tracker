@@ -38,7 +38,7 @@ export const ExerciseInfoCard: React.FC<Props> = ({ exercise }: Props) => {
 				</View>
 				<View style={styles.timeDisplay}>
 					<AntDesign
-						name='clockcircleo'
+						name='clock-circle'
 						size={20}
 						color={colors.text}
 						style={styles.icons}

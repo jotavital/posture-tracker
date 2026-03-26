@@ -28,7 +28,7 @@ export const MainNavigator: React.FC = () => {
 					options={{
 						headerShown: false,
 						tabBarIcon: ({ color }) => {
-							return <AntDesign name='clockcircleo' size={20} color={color} />;
+							return <AntDesign name='clock-circle' size={20} color={color} />;
 						},
 						tabBarLabel: 'Timer',
 					}}

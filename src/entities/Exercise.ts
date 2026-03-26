@@ -4,7 +4,7 @@ import {
 	Entity,
 	PrimaryGeneratedColumn,
 	UpdateDateColumn,
-} from 'typeorm/browser';
+} from 'typeorm';
 
 @Entity('exercises')
 export class Exercise {
