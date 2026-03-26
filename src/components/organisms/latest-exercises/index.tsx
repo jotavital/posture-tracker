@@ -21,8 +21,6 @@ export const LatestExercises: React.FC = () => {
 				data={latestExercises}
 				renderItem={({ item }) => <ExerciseInfoCard exercise={item} />}
 				keyExtractor={(item) => String(item.id)}
-				// eslint-disable-next-line react-native/no-inline-styles
-				ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
 			/>
 		</View>
 	) : null;

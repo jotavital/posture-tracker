@@ -1,6 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
-import { Animated } from 'react-native';
-import { Button } from '~/components/atoms/button';
+import { Animated, Pressable } from 'react-native';
 import { useExercises } from '~/contexts/exercise-context';
 import { useTheme } from '~/contexts/theme-context';
 
@@ -14,20 +13,27 @@ export const ExerciseInfoCardRightActions: React.FC<Props> = ({ dragX, exerciseI
 	const { handleOpenDeleteModal } = useExercises();
 
 	const translateX = dragX.interpolate({
-		inputRange: [-50, 0],
-		outputRange: [0, 50],
+		inputRange: [-70, 0],
+		outputRange: [0, 70],
 	});
 
 	return (
-		// eslint-disable-next-line react-native/no-inline-styles
-		<Animated.View style={{ width: 50, transform: [{ translateX: translateX }] }}>
-			<Button
+		<Animated.View style={{ width: 70, transform: [{ translateX }] }}>
+			<Pressable
 				onPress={() => handleOpenDeleteModal(exerciseId)}
-				leftIcon={<Ionicons name='trash-outline' size={24} color={colors.contrastText} />}
-				bg={colors.red}
-				shape='square'
-				height='100%'
-			/>
+				style={({ pressed }) => ({
+					flex: 1,
+					backgroundColor: colors.red,
+					justifyContent: 'center',
+					alignItems: 'center',
+					borderRadius: 16,
+					marginLeft: 8,
+					opacity: pressed ? 0.7 : 1,
+					transform: [{ scale: pressed ? 0.95 : 1 }],
+				})}
+			>
+				<Ionicons name='trash' size={24} color={colors.contrastText} />
+			</Pressable>
 		</Animated.View>
 	);
 };

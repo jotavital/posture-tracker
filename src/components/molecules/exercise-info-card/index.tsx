@@ -1,4 +1,3 @@
-import { Ionicons } from '@expo/vector-icons';
 import { View } from 'react-native';
 import { Text } from '~/components/atoms/text';
 import { Swipeable } from 'react-native-gesture-handler';
@@ -12,7 +11,7 @@ interface Props {
 }
 
 export const ExerciseInfoCard: React.FC<Props> = ({ exercise }: Props) => {
-	const { colors } = useTheme();
+	const { colors, isDark } = useTheme();
 
 	const handleRenderRightActions = (_, dragX) => {
 		return <ExerciseInfoCardRightActions dragX={dragX} exerciseId={exercise.id} />;
@@ -25,26 +24,29 @@ export const ExerciseInfoCard: React.FC<Props> = ({ exercise }: Props) => {
 			overshootRight={false}
 			friction={2}
 		>
-			<View style={{ ...styles.container, backgroundColor: colors.contrastBackground }}>
-				<View style={styles.timeDisplay}>
-					<Ionicons
-						name='hourglass-outline'
-						size={24}
-						color={colors.text}
-						style={styles.icons}
-					/>
-					<Text style={{ ...styles.text, color: colors.text }}>
+			<View
+				style={[
+					styles.container,
+					{
+						backgroundColor: colors.contrastBackground || (isDark ? '#1C1C1E' : '#FFFFFF'),
+						borderColor: isDark ? '#2C2C2E' : '#E5E5EA',
+						borderLeftWidth: 4,
+						borderLeftColor: colors.primary,
+					},
+				]}
+			>
+				<View style={styles.dataBlock}>
+					<Text style={[styles.label, { color: colors.text }]}>Duração</Text>
+					<Text style={[styles.valueText, { color: colors.text }]}>
 						{exercise.total_time}
 					</Text>
 				</View>
-				<View style={styles.timeDisplay}>
-					<Ionicons
-						name='time-outline'
-						size={20}
-						color={colors.text}
-						style={styles.icons}
-					/>
-					<Text style={{ ...styles.text, color: colors.text }}>{exercise.end_time}</Text>
+
+				<View style={styles.rightSection}>
+					<Text style={[styles.label, { color: colors.text }]}>Finalizado</Text>
+					<Text style={[styles.valueText, { color: colors.text }]}>
+						{exercise.end_time}
+					</Text>
 				</View>
 			</View>
 		</Swipeable>
